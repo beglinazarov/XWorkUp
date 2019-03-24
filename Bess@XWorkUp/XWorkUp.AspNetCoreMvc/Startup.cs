@@ -74,12 +74,12 @@ namespace XWorkUp.AspNetCoreMvc
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
 
-			//services.AddAuthentication(o =>
-			//{
-			//	o.DefaultScheme = IdentityConstants.ApplicationScheme;
-			//	o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-			//})
-			//.AddIdentityCookies(o => { });
+			services.AddAuthentication(o =>
+			{
+				o.DefaultScheme = IdentityConstants.ApplicationScheme;
+				o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+			})
+			.AddIdentityCookies(o => { });
 
 			// old approach
 			//services.AddIdentityCore<ApplicationUser>()
