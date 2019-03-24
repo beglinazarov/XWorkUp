@@ -9,18 +9,28 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using XWorkUp.AspNetCoreMvc.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using XWorkUp.AspNetCoreMvc.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace XWorkUp.AspNetCoreMvc
 {
 	public class Startup
 	{
-		public Startup(IConfiguration configuration)
+		public Startup(IHostingEnvironment env)
 		{
-			Configuration = configuration;
+			var builder = new ConfigurationBuilder()
+				.SetBasePath(env.ContentRootPath)
+				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+			builder.AddEnvironmentVariables();
+			Configuration = builder.Build();
 		}
 
 		public IConfiguration Configuration { get; }
@@ -35,17 +45,48 @@ namespace XWorkUp.AspNetCoreMvc
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
+
+
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
 
+			services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+
+			services.ConfigureApplicationCookie(options =>
+			{
+				// Cookie settings
+				options.Cookie.HttpOnly = true;
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+				options.LoginPath = "/Identity/Account/Login";
+				options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+				options.SlidingExpiration = true;
+			});
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-			services.AddDefaultIdentity<IdentityUser>()
-				//new code
-				.AddRoles<IdentityRole>()
+			services.AddIdentityCore<ApplicationUser>()
+			//	.AddRoles<IdentityRole>()
+			//	.AddUserStore<UserStore>()
+				.AddSignInManager<SignInManager<ApplicationUser>>()
 				.AddDefaultUI(UIFramework.Bootstrap4)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders();
+
+			//services.AddAuthentication(o =>
+			//{
+			//	o.DefaultScheme = IdentityConstants.ApplicationScheme;
+			//	o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+			//})
+			//.AddIdentityCookies(o => { });
+
+			// old approach
+			//services.AddIdentityCore<ApplicationUser>()
+			//	//new code
+			//	.AddRoles<IdentityRole>()
+			//	.AddDefaultUI(UIFramework.Bootstrap4)
+			//	.AddEntityFrameworkStores<ApplicationDbContext>();
 
 			//services.ConfigureApplicationCookie(options =>
 			//{
@@ -58,7 +99,7 @@ namespace XWorkUp.AspNetCoreMvc
 			//	options.SlidingExpiration = true;
 			//});
 
-			
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
