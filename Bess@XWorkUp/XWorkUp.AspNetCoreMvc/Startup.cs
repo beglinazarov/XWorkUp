@@ -17,6 +17,7 @@ using XWorkUp.AspNetCoreMvc.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using XWorkUp.AspNetCoreMvc.Services;
 
 namespace XWorkUp.AspNetCoreMvc
 {
@@ -59,15 +60,21 @@ namespace XWorkUp.AspNetCoreMvc
 				options.Cookie.HttpOnly = true;
 				options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-				options.LoginPath = "/Identity/Account/Login";
-				options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+				options.LoginPath = new PathString("/Account/Login");
+				options.AccessDeniedPath = "/Account/AccessDenied";
 				options.SlidingExpiration = true;
 			});
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc()
+					.AddRazorPagesOptions(options =>
+					{
+						options.Conventions.AuthorizeFolder("/Account/Manage");
+						options.Conventions.AuthorizePage("/Account/Logout");
+					})
+			.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.AddIdentityCore<ApplicationUser>()
-			//	.AddRoles<IdentityRole>()
+				.AddRoles<IdentityRole>()
 			//	.AddUserStore<UserStore>()
 				.AddSignInManager<SignInManager<ApplicationUser>>()
 				.AddDefaultUI(UIFramework.Bootstrap4)
@@ -81,6 +88,10 @@ namespace XWorkUp.AspNetCoreMvc
 			})
 			.AddIdentityCookies(o => { });
 
+			// Add application services.
+			services.AddTransient<IEmailSender, AuthMessageSender>();
+			services.AddTransient<ISmsSender, AuthMessageSender>();
+
 			// old approach
 			//services.AddIdentityCore<ApplicationUser>()
 			//	//new code
@@ -88,13 +99,14 @@ namespace XWorkUp.AspNetCoreMvc
 			//	.AddDefaultUI(UIFramework.Bootstrap4)
 			//	.AddEntityFrameworkStores<ApplicationDbContext>();
 
+
 			//services.ConfigureApplicationCookie(options =>
 			//{
 			//	// Cookie settings
 			//	options.Cookie.HttpOnly = true;
 			//	options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-			//	options.LoginPath = "/Identity/Account/Login";
+			//	options.LoginPath = "/Account/Login";
 			//	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 			//	options.SlidingExpiration = true;
 			//});
