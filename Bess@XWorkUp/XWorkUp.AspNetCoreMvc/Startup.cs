@@ -38,11 +38,27 @@ namespace XWorkUp.AspNetCoreMvc
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
 			services.AddDefaultIdentity<IdentityUser>()
+				//new code
+				.AddRoles<IdentityRole>()
 				.AddDefaultUI(UIFramework.Bootstrap4)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			//services.ConfigureApplicationCookie(options =>
+			//{
+			//	// Cookie settings
+			//	options.Cookie.HttpOnly = true;
+			//	options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+			//	options.LoginPath = "/Identity/Account/Login";
+			//	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+			//	options.SlidingExpiration = true;
+			//});
+
+			
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
