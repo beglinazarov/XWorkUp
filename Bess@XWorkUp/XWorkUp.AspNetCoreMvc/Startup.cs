@@ -73,7 +73,14 @@ namespace XWorkUp.AspNetCoreMvc
 					})
 			.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-			services.AddIdentityCore<ApplicationUser>()
+			services.AddIdentityCore<ApplicationUser>(options =>
+			{
+				options.Password.RequiredLength = 8;
+				options.Password.RequireNonAlphanumeric = true;
+				options.Password.RequireUppercase = true;
+				options.User.RequireUniqueEmail = true;
+
+			})
 			//services.AddIdentity<IdentityUser, IdentityRole>()
 			   .AddRoles<IdentityRole>()
 			//	.AddUserStore<UserStore>()
