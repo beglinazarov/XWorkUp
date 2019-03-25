@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,7 +52,7 @@ namespace XWorkUp.AspNetCoreMvc
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+			//services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
 
 			services.ConfigureApplicationCookie(options =>
 			{
@@ -74,7 +74,8 @@ namespace XWorkUp.AspNetCoreMvc
 			.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.AddIdentityCore<ApplicationUser>()
-				.AddRoles<IdentityRole>()
+			//services.AddIdentity<IdentityUser, IdentityRole>()
+			   .AddRoles<IdentityRole>()
 			//	.AddUserStore<UserStore>()
 				.AddSignInManager<SignInManager<ApplicationUser>>()
 				.AddDefaultUI(UIFramework.Bootstrap4)
