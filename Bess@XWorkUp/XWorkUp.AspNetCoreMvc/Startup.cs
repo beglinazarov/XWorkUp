@@ -18,6 +18,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using XWorkUp.AspNetCoreMvc.Services;
+using XWorkUp.AspNetCoreMvc.Auth;
 
 namespace XWorkUp.AspNetCoreMvc
 {

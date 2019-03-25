@@ -1,15 +1,10 @@
 ﻿using XWorkUp.AspNetCoreMvc.Models;
-using BethanysPieShop.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using XWorkUp.AspNetCoreMvc.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BethanysPieShop.Components
 {
-    public class ShoppingCartSummary: ViewComponent
+	public class ShoppingCartSummary: ViewComponent
     {
         private readonly ShoppingCart _shoppingCart;
 

@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using XWorkUp.AspNetCoreMvc.Models;
+using XWorkUp.AspNetCoreMvc.Auth;
 using XWorkUp.AspNetCoreMvc.Models.AccountViewModels;
 using XWorkUp.AspNetCoreMvc.Services;
 using Microsoft.AspNetCore.Authorization;

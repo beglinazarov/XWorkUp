@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BethanysPieShop.ViewModels
+namespace XWorkUp.AspNetCoreMvc.ViewModels
 {
     public class HomeViewModel
     {
-        //public IEnumerable<Pie> PiesOfTheWeek { get; set; }
+        public IEnumerable<Pie> PiesOfTheWeek { get; set; }
     }
 }
