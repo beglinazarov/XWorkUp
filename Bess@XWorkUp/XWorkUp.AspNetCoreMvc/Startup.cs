@@ -81,8 +81,7 @@ namespace XWorkUp.AspNetCoreMvc
 				options.User.RequireUniqueEmail = true;
 
 			})
-			//services.AddIdentity<IdentityUser, IdentityRole>()
-			   .AddRoles<IdentityRole>()
+				.AddRoles<IdentityRole>()
 			//	.AddUserStore<UserStore>()
 				.AddSignInManager<SignInManager<ApplicationUser>>()
 				.AddDefaultUI(UIFramework.Bootstrap4)

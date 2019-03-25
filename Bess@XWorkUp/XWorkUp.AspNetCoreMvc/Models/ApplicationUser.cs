@@ -9,5 +9,8 @@ namespace XWorkUp.AspNetCoreMvc.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
-    }
+		public DateTime BirthDate { get; set; }
+		public string City { get; set; }
+		public string Country { get; set; }
+	}
 }

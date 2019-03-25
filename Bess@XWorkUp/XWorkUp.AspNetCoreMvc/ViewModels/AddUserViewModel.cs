@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace XWorkUp.AspNetCoreMvc.ViewModels
 {
@@ -17,5 +18,17 @@ namespace XWorkUp.AspNetCoreMvc.ViewModels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-    }
+
+		[Required]
+		[DataType(DataType.DateTime)]
+		public DateTime BirthDate { get; set; }
+
+		[Required]
+		[Display(Name = "City")]
+		public string City { get; set; }
+
+		[Required]
+		[Display(Name = "Country")]
+		public string Country { get; set; }
+	}
 }
