@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Identity\**" />
+    <Compile Remove="Views\Components\**" />
     <Content Remove="Areas\Identity\**" />
+    <Content Remove="Views\Components\**" />
     <EmbeddedResource Remove="Areas\Identity\**" />
+    <EmbeddedResource Remove="Views\Components\**" />
     <None Remove="Areas\Identity\**" />
+    <None Remove="Views\Components\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +59,9 @@
     <None Include="Views\Manage\ManageLogins.cshtml" />
     <None Include="Views\Manage\SetPassword.cshtml" />
     <None Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <None Include="Views\Shared\Components\AdminMenu\Default.cshtml" />
+    <None Include="Views\Shared\Components\CategoryMenu\Default.cshtml" />
+    <None Include="Views\Shared\Components\ShoppingCartSummary\Default.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -43,14 +43,17 @@
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 						</li>
-						<li class="nav-item">
+
+						@*<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="UserManagement">User-Management</a>
-						</li>
+						</li>*@
+							@await Component.InvokeAsync("AdminMenu")
 						@if (SignInManager.IsSignedIn(User))
 						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Work" asp-action="UserManagement">X Work Up - Platform</a>
 							</li>
+
 						}
 					</ul>
 				</div>

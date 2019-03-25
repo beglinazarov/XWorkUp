@@ -18,5 +18,11 @@ namespace XWorkUp.AspNetCoreMvc.Models
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-    }
+
+		public DbSet<Pie> Pies { get; set; }
+		public DbSet<Category> Categories { get; set; }
+		public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+		public DbSet<Order> Orders { get; set; }
+		public DbSet<OrderDetail> OrderDetails { get; set; }
+	}
 }
