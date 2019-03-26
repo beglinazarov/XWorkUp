@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using XWorkUp.AspNetCoreMvc.Auth;
 using XWorkUp.AspNetCoreMvc.ViewModels;
@@ -75,18 +74,24 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 			if (user == null)
 				return RedirectToAction("UserManagement", _userManager.Users);
 
-			return View(user);
+			var claims = await _userManager.GetClaimsAsync(user);
+			var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, UserClaims = claims.Select(c => c.Value).ToList() };
+
+			return View(vm);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> EditUser(string id, string UserName, string Email)
+		public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
 		{
-			var user = await _userManager.FindByIdAsync(id);
+			var user = await _userManager.FindByIdAsync(editUserViewModel.Id);
 
 			if (user != null)
 			{
-				user.Email = Email;
-				user.UserName = UserName;
+				user.Email = editUserViewModel.Email;
+				user.UserName = editUserViewModel.UserName;
+				user.BirthDate = editUserViewModel.Birthdate;
+				user.City = editUserViewModel.City;
+				user.Country = editUserViewModel.Country;
 
 				var result = await _userManager.UpdateAsync(user);
 
@@ -95,7 +100,7 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 
 				ModelState.AddModelError("", "User not updated, something went wrong.");
 
-				return View(user);
+				return View(editUserViewModel);
 			}
 
 			return RedirectToAction("UserManagement", _userManager.Users);
@@ -321,15 +326,21 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ManageClaimsForUser(ClaimsManagementViewModel claimsManagementViewModel)
 		{
+			
 			var user = await _userManager.FindByIdAsync(claimsManagementViewModel.UserId);
 
 			if (user == null)
 				return RedirectToAction("UserManagement", _userManager.Users);
 
 			IdentityUserClaim<string> claim =
-				new IdentityUserClaim<string> { ClaimType = claimsManagementViewModel.ClaimId, ClaimValue = claimsManagementViewModel.ClaimId };
+				new IdentityUserClaim<string> { ClaimType = claimsManagementViewModel.ClaimId, ClaimValue = claimsManagementViewModel.ClaimId, UserId = user.Id };
 
+			//System.Security.Claims.Claim claim = new System.Security.Claims.Claim() { };
 			//user.Claims.Add(claim);
+			// Create customized claim 
+
+			await _userManager.AddClaimAsync(user, new Claim(claimsManagementViewModel.ClaimId.ToString(),claimsManagementViewModel.ClaimId.ToString()));
+
 			var result = await _userManager.UpdateAsync(user);
 
 			if (result.Succeeded)

@@ -48,9 +48,13 @@
 						@*<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="UserManagement">User-Management</a>
 							</li>*@
-						@await Component.InvokeAsync("AdminMenu")
-						@if (SignInManager.IsSignedIn(User))
+						@if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
 						{
+							@await Component.InvokeAsync("AdminMenu")
+							<li class="dropdown">
+								<a asp-controller="PieManagement"
+								   asp-action="Index">Pie Management</a>
+							</li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="XWork" asp-action="UserManagement">X Work Up - Platform</a>
 							</li>

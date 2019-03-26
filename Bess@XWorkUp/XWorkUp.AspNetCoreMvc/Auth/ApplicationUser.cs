@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Security.Claims;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace XWorkUp.AspNetCoreMvc.Auth
@@ -10,6 +10,8 @@ namespace XWorkUp.AspNetCoreMvc.Auth
 		public DateTime BirthDate { get; set; }
 		public string City { get; set; }
 		public string Country { get; set; }
+		public ICollection<IdentityUserClaim<string>> Claims { get; internal set; }
+
 		//public Claim Claims { get; internal set; }
 	}
 }

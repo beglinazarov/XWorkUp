@@ -66,6 +66,12 @@ namespace XWorkUp.AspNetCoreMvc
 				options.SlidingExpiration = true;
 			});
 
+			services.AddTransient<IPieRepository, PieRepository>();
+			services.AddTransient<ICategoryRepository, CategoryRepository>();
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+			//services.AddTransient<IOrderRepository, OrderRepository>();
+
 			services.AddMvc()
 					.AddRazorPagesOptions(options =>
 					{
@@ -96,6 +102,11 @@ namespace XWorkUp.AspNetCoreMvc
 			})
 			.AddIdentityCookies(o => { });
 
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("DeletePie", policy => policy.RequireClaim("Delete Pie"));
+				options.AddPolicy("AddPie", policy => policy.RequireClaim("Add Pie"));
+			});
 			// Add application services.
 			services.AddTransient<IEmailSender, AuthMessageSender>();
 			services.AddTransient<ISmsSender, AuthMessageSender>();

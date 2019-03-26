@@ -60,6 +60,12 @@
     <None Include="Views\Manage\ManageLogins.cshtml" />
     <None Include="Views\Manage\SetPassword.cshtml" />
     <None Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <None Include="Views\PieManagement\AddPie.cshtml" />
+    <None Include="Views\PieManagement\DeletePie.cshtml" />
+    <None Include="Views\PieManagement\EditPie.cshtml" />
+    <None Include="Views\PieManagement\Index.cshtml" />
+    <None Include="Views\Pie\Details.cshtml" />
+    <None Include="Views\Pie\List.cshtml" />
     <None Include="Views\Shared\Components\AdminMenu\Default.cshtml" />
     <None Include="Views\Shared\Components\CategoryMenu\Default.cshtml" />
     <None Include="Views\Shared\Components\ShoppingCartSummary\Default.cshtml" />
