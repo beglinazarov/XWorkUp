@@ -15,7 +15,7 @@ namespace XWorkUp.AspNetCoreMvc.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -140,7 +140,7 @@ namespace XWorkUp.AspNetCoreMvc.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime>("BirthDate");
+                    b.Property<DateTime>("Birthdate");
 
                     b.Property<string>("City");
 
@@ -304,13 +304,76 @@ namespace XWorkUp.AspNetCoreMvc.Data.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<string>("ShortDescription");
+                    b.Property<string>("ShortDescription")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("SugarLevel");
 
                     b.HasKey("PieId");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Pies");
+                });
+
+            modelBuilder.Entity("XWorkUp.AspNetCoreMvc.Models.PieGiftOrder", b =>
+                {
+                    b.Property<int>("PieGiftOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<int?>("PieId");
+
+                    b.HasKey("PieGiftOrderId");
+
+                    b.HasIndex("PieId");
+
+                    b.ToTable("PieGiftOrders");
+                });
+
+            modelBuilder.Entity("XWorkUp.AspNetCoreMvc.Models.PieReview", b =>
+                {
+                    b.Property<int>("PieReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PieId");
+
+                    b.Property<string>("Review");
+
+                    b.HasKey("PieReviewId");
+
+                    b.HasIndex("PieId");
+
+                    b.ToTable("PieReviews");
+                });
+
+            modelBuilder.Entity("XWorkUp.AspNetCoreMvc.Models.RecipeInformation", b =>
+                {
+                    b.Property<int>("RecipeInformationId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Duration");
+
+                    b.Property<int>("PieId");
+
+                    b.Property<string>("PreparationDirections");
+
+                    b.HasKey("RecipeInformationId");
+
+                    b.HasIndex("PieId")
+                        .IsUnique();
+
+                    b.ToTable("RecipeInformation");
                 });
 
             modelBuilder.Entity("XWorkUp.AspNetCoreMvc.Models.ShoppingCartItem", b =>
@@ -399,6 +462,28 @@ namespace XWorkUp.AspNetCoreMvc.Data.Migrations
                     b.HasOne("XWorkUp.AspNetCoreMvc.Models.Category", "Category")
                         .WithMany("Pies")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("XWorkUp.AspNetCoreMvc.Models.PieGiftOrder", b =>
+                {
+                    b.HasOne("XWorkUp.AspNetCoreMvc.Models.Pie", "Pie")
+                        .WithMany()
+                        .HasForeignKey("PieId");
+                });
+
+            modelBuilder.Entity("XWorkUp.AspNetCoreMvc.Models.PieReview", b =>
+                {
+                    b.HasOne("XWorkUp.AspNetCoreMvc.Models.Pie", "Pie")
+                        .WithMany("PieReviews")
+                        .HasForeignKey("PieId");
+                });
+
+            modelBuilder.Entity("XWorkUp.AspNetCoreMvc.Models.RecipeInformation", b =>
+                {
+                    b.HasOne("XWorkUp.AspNetCoreMvc.Models.Pie", "Pie")
+                        .WithOne("RecipeInformation")
+                        .HasForeignKey("XWorkUp.AspNetCoreMvc.Models.RecipeInformation", "PieId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

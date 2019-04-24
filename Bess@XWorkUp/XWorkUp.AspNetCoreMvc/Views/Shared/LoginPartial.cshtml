@@ -1,0 +1,28 @@
+﻿@using XWorkUp.AspNetCoreMvc.Auth
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{	<ul class="nav navbar-nav navbar-right">
+		
+	</ul>
+	<form asp-area="" asp-controller="Account" asp-action="LogOff" id="logoutForm"
+		  method="post" class="navbar-right">
+		<ul class="nav navbar-nav navbar-right">
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+			</li>
+			<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+		</ul>
+	</form>
+}
+else
+{
+	<ul class="nav navbar-nav navbar-right">
+		<li><a id="registerLink" asp-controller="Account" asp-action="Register">Register</a></li>
+		<li><a id="loginLink" asp-controller="Account" asp-action="Login">Log in</a></li>
+	</ul>
+}
+

@@ -107,15 +107,17 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+					// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+					// Send an email with this link
+					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+					var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code }, protocol: HttpContext.Request.Scheme);
+					await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+						"Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+
+					//await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+
+					return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
             }
@@ -135,9 +137,68 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        //
-        // POST: /Account/ExternalLogin
-        [HttpPost]
+		public IActionResult AccessDenied()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
+		public IActionResult GoogleLogin(string returnUrl = null)
+		{
+			var redirectUrl = Url.Action("GoogleLoginCallback", "Account", new { ReturnUrl = returnUrl });
+			var properties = _signInManager.ConfigureExternalAuthenticationProperties(ExternalLoginServiceConstants.GoogleProvider, redirectUrl);
+			return Challenge(properties, ExternalLoginServiceConstants.GoogleProvider);
+		}
+
+		[AllowAnonymous]
+		public async Task<IActionResult> GoogleLoginCallback(string returnUrl = null, string serviceError = null)
+		{
+			if (serviceError != null)
+			{
+				ModelState.AddModelError(string.Empty, $"Error from external provider: {serviceError}");
+				return View(nameof(Login));
+			}
+
+			var info = await _signInManager.GetExternalLoginInfoAsync();
+			if (info == null)
+			{
+				return RedirectToAction(nameof(Login));
+			}
+
+			var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+			if (result.Succeeded)
+			{
+				if (returnUrl == null)
+					return RedirectToAction("index", "home");
+
+				return Redirect(returnUrl);
+			}
+
+			var user = new ApplicationUser
+			{
+				Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
+				UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
+			};
+
+			var identityResult = await _userManager.CreateAsync(user);
+
+			if (!identityResult.Succeeded) return AccessDenied();
+
+			identityResult = await _userManager.AddLoginAsync(user, info);
+
+			if (!identityResult.Succeeded) return AccessDenied();
+
+			await _signInManager.SignInAsync(user, false);
+
+			if (returnUrl == null)
+				return RedirectToAction("index", "home");
+
+			return Redirect(returnUrl);
+		}
+
+		//
+		// POST: /Account/ExternalLogin
+		[HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)

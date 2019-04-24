@@ -2,7 +2,7 @@
 using XWorkUp.AspNetCoreMvc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BethanysPieShop.Components
+namespace XWorkUp.AspNetCoreMvc.Components
 {
 	public class ShoppingCartSummary: ViewComponent
     {

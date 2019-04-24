@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Encodings.Web;
 using XWorkUp.AspNetCoreMvc.Models;
+using XWorkUp.AspNetCoreMvc.ViewModels;
+
+// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace XWorkUp.AspNetCoreMvc.Controllers
 {
 	public class HomeController : Controller
 	{
-		public IActionResult Index()
+		private readonly IPieRepository _pieRepository;
+		HtmlEncoder _htmlEncoder;
+
+		public HomeController(HtmlEncoder htmlEncoder, IPieRepository pieRepository)
 		{
-			return View();
+			//Sanitizing input via HtmlEncoder there are alternative way JavascriptEncoder and UrlEncoder
+			_htmlEncoder = htmlEncoder;
+			_pieRepository = pieRepository;
 		}
 
-		public IActionResult Privacy()
+		public ViewResult Index()
 		{
-			return View();
-		}
+			var homeViewModel = new HomeViewModel
+			{
+				PiesOfTheWeek = _pieRepository.PiesOfTheWeek
+			};
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+			return View(homeViewModel);
 		}
 	}
 }

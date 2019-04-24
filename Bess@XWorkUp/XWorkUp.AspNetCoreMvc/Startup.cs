@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using XWorkUp.AspNetCoreMvc.Models;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using XWorkUp.AspNetCoreMvc.Services;
 using XWorkUp.AspNetCoreMvc.Auth;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace XWorkUp.AspNetCoreMvc
 {
@@ -30,6 +23,7 @@ namespace XWorkUp.AspNetCoreMvc
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+				//.AddJsonFile($"secrets.{env.EnvironmentName}.json", optional: true);
 
 			builder.AddEnvironmentVariables();
 			Configuration = builder.Build();
@@ -69,8 +63,16 @@ namespace XWorkUp.AspNetCoreMvc
 			services.AddTransient<IPieRepository, PieRepository>();
 			services.AddTransient<ICategoryRepository, CategoryRepository>();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-			services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
-			//services.AddTransient<IOrderRepository, OrderRepository>();
+			services.AddScoped(sp => ShoppingCart.GetCart(sp));
+			services.AddTransient<IOrderRepository, OrderRepository>();
+			services.AddTransient<IPieReviewRepository, PieReviewRepository>();
+
+			//specify options for the anti forgery here
+			//services.AddAntiforgery(opts => { opts.RequireSsl = true; });
+
+			//anti forgery as global filter
+			services.AddMvc(options =>
+				options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
 			services.AddMvc()
 					.AddRazorPagesOptions(options =>
@@ -86,6 +88,8 @@ namespace XWorkUp.AspNetCoreMvc
 				options.Password.RequireNonAlphanumeric = true;
 				options.Password.RequireUppercase = true;
 				options.User.RequireUniqueEmail = true;
+				options.SignIn.RequireConfirmedEmail = false;
+				//options.SignIn.RequireConfirmedPhoneNumber = true;
 
 			})
 				.AddRoles<IdentityRole>()
@@ -100,16 +104,30 @@ namespace XWorkUp.AspNetCoreMvc
 				o.DefaultScheme = IdentityConstants.ApplicationScheme;
 				o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
 			})
+			.AddGoogle(googleOptions => {
+				googleOptions.ClientId = "419998585765-18s94828lr7catq8c9nb5dmhd96pgebq.apps.googleusercontent.com";
+				googleOptions.ClientSecret = "X_WqRQ4vlkQd4XCR6ZAOP4Dc";
+			})
 			.AddIdentityCookies(o => { });
 
 			services.AddAuthorization(options =>
 			{
 				options.AddPolicy("DeletePie", policy => policy.RequireClaim("Delete Pie"));
 				options.AddPolicy("AddPie", policy => policy.RequireClaim("Add Pie"));
+				options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18)));
 			});
+			services.AddMemoryCache();
+			services.AddSession();
 			// Add application services.
-			services.AddTransient<IEmailSender, AuthMessageSender>();
+			services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("AuthMessageSenderOptions"));
+			services.AddSingleton<IEmailSender, AuthMessageSender>();
 			services.AddTransient<ISmsSender, AuthMessageSender>();
+
+			// requires
+			// using Microsoft.AspNetCore.Identity.UI.Services;
+			// using WebPWrecover.Services;
+			//services.AddTransient<IEmailSender, EmailSender>();
+			//services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("AuthMessageSenderOptions"));
 
 			// old approach
 			//services.AddIdentityCore<ApplicationUser>()
@@ -134,7 +152,7 @@ namespace XWorkUp.AspNetCoreMvc
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
 		{
 			if (env.IsDevelopment())
 			{
@@ -149,10 +167,14 @@ namespace XWorkUp.AspNetCoreMvc
 			}
 
 			app.UseHttpsRedirection();
-			app.UseStaticFiles();
 			app.UseCookiePolicy();
-
+			app.UseDeveloperExceptionPage();
+			app.UseStatusCodePages();
+			app.UseStaticFiles();
+			app.UseSession();
 			app.UseAuthentication();
+
+	
 
 			app.UseMvc(routes =>
 			{
@@ -160,6 +182,8 @@ namespace XWorkUp.AspNetCoreMvc
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+			DbInitializer.Seed(serviceProvider.GetRequiredService<ApplicationDbContext>());
 		}
 	}
 }

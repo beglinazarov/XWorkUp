@@ -48,7 +48,7 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 			{
 				UserName = addUserViewModel.UserName,
 				Email = addUserViewModel.Email,
-				BirthDate = addUserViewModel.BirthDate,
+				Birthdate = addUserViewModel.BirthDate,
 				City = addUserViewModel.City,
 				Country = addUserViewModel.Country
 			};
@@ -75,7 +75,16 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 				return RedirectToAction("UserManagement", _userManager.Users);
 
 			var claims = await _userManager.GetClaimsAsync(user);
-			var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, UserClaims = claims.Select(c => c.Value).ToList() };
+			var vm = new EditUserViewModel()
+			{
+				Id = user.Id,
+				Email = user.Email,
+				UserName = user.UserName,
+				Birthdate = user.Birthdate,
+				City = user.City,
+				Country = user.Country,
+				UserClaims = claims.Select(c => c.Value).ToList()
+			};
 
 			return View(vm);
 		}
@@ -89,7 +98,7 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 			{
 				user.Email = editUserViewModel.Email;
 				user.UserName = editUserViewModel.UserName;
-				user.BirthDate = editUserViewModel.Birthdate;
+				user.Birthdate = editUserViewModel.Birthdate;
 				user.City = editUserViewModel.City;
 				user.Country = editUserViewModel.Country;
 
