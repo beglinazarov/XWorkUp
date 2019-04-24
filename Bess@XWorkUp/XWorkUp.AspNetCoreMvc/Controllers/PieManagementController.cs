@@ -5,28 +5,29 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace XWorkUp.AspNetCoreMvc.Controllers
 {
-    [Authorize(Roles = "Administrator")]
-    [Authorize(Policy = "DeletePie")]
-    [Authorize(Policy = "AddPie")]
-	public class PieManagementController: Controller
-    {
-        private readonly IPieRepository _pieRepository;
-        private readonly ICategoryRepository _categoryRepository;
+	[Authorize(Roles = "Administrator")]
+	[Authorize(Policy = "DeletePie")]
+	[Authorize(Policy = "AddPie")]
+	public class PieManagementController : Controller
+	{
+		private readonly IPieRepository _pieRepository;
+		private readonly ICategoryRepository _categoryRepository;
 
-        public PieManagementController(IPieRepository pieRepository, ICategoryRepository categoryRepository)
-        {
-            _pieRepository = pieRepository;
-            _categoryRepository = categoryRepository;
-        }
+		public PieManagementController(IPieRepository pieRepository, ICategoryRepository categoryRepository)
+		{
+			_pieRepository = pieRepository;
+			_categoryRepository = categoryRepository;
+		}
 
-        public ViewResult Index()
-        {
-            var pies = _pieRepository.Pies.OrderBy(p => p.PieId);
-            return View(pies);
-        }
+		public ViewResult Index()
+		{
+			var pies = _pieRepository.Pies.OrderBy(p => p.PieId);
+			return View(pies);
+		}
 
 		public IActionResult AddPie()
 		{
@@ -42,12 +43,19 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 		[HttpPost]
 		public IActionResult AddPie(PieEditViewModel pieEditViewModel)
 		{
-			//Basic validation
+			//Custom validation rules
+			if (ModelState.GetValidationState("Pie.Price") == ModelValidationState.Valid
+				&& pieEditViewModel.Pie.Price < 0)
+				ModelState.AddModelError(nameof(pieEditViewModel.Pie.Price),"The price of pie should be higher than 0");
+
+			if (pieEditViewModel.Pie.IsPieOfTheWeek && !pieEditViewModel.Pie.InStock)
+				ModelState.AddModelError(nameof(pieEditViewModel.Pie.IsPieOfTheWeek), "Only pies that are in stock should be Pie of the Week");
+
 			if (ModelState.IsValid)
-			{
-				_pieRepository.CreatePie(pieEditViewModel.Pie);
-				return RedirectToAction("Index");
-			}
+				{
+					_pieRepository.CreatePie(pieEditViewModel.Pie);
+					return RedirectToAction("Index");
+				}
 			return View(pieEditViewModel);
 		}
 
