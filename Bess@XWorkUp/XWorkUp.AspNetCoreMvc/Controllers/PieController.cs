@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using XWorkUp.AspNetCoreMvc.Filters;
 using XWorkUp.AspNetCoreMvc.Models;
 using XWorkUp.AspNetCoreMvc.Utility;
 using XWorkUp.AspNetCoreMvc.ViewModels;
@@ -12,6 +13,7 @@ using XWorkUp.AspNetCoreMvc.ViewModels;
 
 namespace XWorkUp.AspNetCoreMvc.Controllers
 {
+	[PieNotFoundException]
 	public class PieController : Controller
     {
 		HtmlEncoder _htmlEncoder;
@@ -71,11 +73,15 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 		{
 			var pie = _pieRepository.GetPieById(id);
 			if (pie == null)
-				return NotFound();
+			{
+				_logger.LogDebug(LogEventIds.GetPieIdNotFound, new Exception("Pie Not Found"), "Pie with id {0} not found", id);
+				//return NotFound();
+				// Catch this error using the exception filter
+				throw new PieNotFoundException();
+			}
 
-			if (pie.PieReviews == null)
-				pie.PieReviews = new List<PieReview>() { new PieReview() { Pie = pie, PieReviewId = 1, Review = "tasty!" } };
-
+			//if (pie.PieReviews == null)
+			
 			return View(new PieDetailViewModel() { Pie = pie });
 		}
 

@@ -19,6 +19,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System.IO;
+using XWorkUp.AspNetCoreMvc.Filters;
 
 namespace XWorkUp.AspNetCoreMvc
 {
@@ -71,7 +72,8 @@ namespace XWorkUp.AspNetCoreMvc
 			services.AddScoped(sp => ShoppingCart.GetCart(sp));
 			services.AddTransient<IOrderRepository, OrderRepository>();
 			services.AddTransient<IPieReviewRepository, PieReviewRepository>();
-
+			//Filters
+			services.AddScoped<TimerAction>();
 			//specify options for the anti forgery here
 			services.AddAntiforgery();
 

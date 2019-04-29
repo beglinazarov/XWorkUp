@@ -133,3 +133,1295 @@ WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
 2019-04-29 15:20:48.666 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 217.5239ms
 2019-04-29 15:20:48.674 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
 2019-04-29 15:20:48.683 +03:00 [Information] Request finished in 252.3948ms 200 text/html; charset=utf-8
+2019-04-29 15:29:25.427 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 15:29:25.468 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 15:29:25.471 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 15:29:25.521 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:29:25.746 +03:00 [Information] Executed DbCommand ("14"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 15:29:25.765 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 15:29:25.886 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 15:29:26.003 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:29:26.015 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:29:26.034 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:29:26.050 +03:00 [Debug] Loading home page
+2019-04-29 15:29:26.115 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:29:26.130 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 84.0735ms.
+2019-04-29 15:29:26.192 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 15:29:26.696 +03:00 [Information] Executed DbCommand ("11"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 15:29:27.231 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 15:29:27.253 +03:00 [Information] Accessing expired session, Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a"
+2019-04-29 15:29:27.331 +03:00 [Information] Executed DbCommand ("15"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:29:27.424 +03:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:29:28.149 +03:00 [Information] Executed ViewResult - view "Index" executed in 2004.352ms.
+2019-04-29 15:29:28.173 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 2149.4586ms
+2019-04-29 15:29:28.188 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:29:28.210 +03:00 [Information] Session started; Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a", Id:"176dfda5-8daa-4c10-4c91-b4df6ff9616e"
+2019-04-29 15:29:28.240 +03:00 [Information] Request finished in 2346.2011ms 200 text/html; charset=utf-8
+2019-04-29 15:32:12.051 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/List/Cheese cakes  
+2019-04-29 15:32:12.071 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:12.110 +03:00 [Information] Route matched with "{action = \"List\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:12.139 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)" with arguments (["Cheese cakes"]) - Validation state: Valid
+2019-04-29 15:32:12.147 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:12.155 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 15:32:12.160 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 15.7432ms.
+2019-04-29 15:32:12.176 +03:00 [Information] Executing ViewResult, running view "List".
+2019-04-29 15:32:12.204 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 15:32:12.235 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 15:32:12.243 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:12.253 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:12.379 +03:00 [Information] Executed ViewResult - view "List" executed in 213.0952ms.
+2019-04-29 15:32:12.385 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)" in 269.8285ms
+2019-04-29 15:32:12.393 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:12.403 +03:00 [Information] Request finished in 351.6115ms 200 text/html; charset=utf-8
+2019-04-29 15:32:12.514 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/List/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 15:32:12.534 +03:00 [Information] Request finished in 13.3594ms 404 text/plain
+2019-04-29 15:32:12.736 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/api/PieData  
+2019-04-29 15:32:12.741 +03:00 [Information] Executing endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:12.756 +03:00 [Information] Route matched with "{action = \"LoadMorePies\", controller = \"PieData\", area = \"\", page = \"\"}". Executing action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:12.768 +03:00 [Information] Executing action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:32:12.774 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:12.782 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 15:32:12.789 +03:00 [Information] Executed action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 17.3448ms.
+2019-04-29 15:32:12.798 +03:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[XWorkUp.AspNetCoreMvc.ViewModels.PieViewModel, XWorkUp.AspNetCoreMvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-04-29 15:32:12.865 +03:00 [Information] Executed action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" in 104.0802ms
+2019-04-29 15:32:12.870 +03:00 [Information] Executed endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:12.875 +03:00 [Information] Request finished in 157.8513ms 200 application/json; charset=utf-8
+2019-04-29 15:32:14.374 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/api/PieData  
+2019-04-29 15:32:14.384 +03:00 [Information] Executing endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:14.390 +03:00 [Information] Route matched with "{action = \"LoadMorePies\", controller = \"PieData\", area = \"\", page = \"\"}". Executing action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:14.401 +03:00 [Information] Executing action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:32:14.405 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:14.412 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 15:32:14.416 +03:00 [Information] Executed action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 11.563ms.
+2019-04-29 15:32:14.422 +03:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[XWorkUp.AspNetCoreMvc.ViewModels.PieViewModel, XWorkUp.AspNetCoreMvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-04-29 15:32:14.429 +03:00 [Information] Executed action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" in 32.6736ms
+2019-04-29 15:32:14.436 +03:00 [Information] Executed endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:14.440 +03:00 [Information] Request finished in 67.6073ms 200 application/json; charset=utf-8
+2019-04-29 15:32:15.524 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/api/PieData  
+2019-04-29 15:32:15.534 +03:00 [Information] Executing endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:15.540 +03:00 [Information] Route matched with "{action = \"LoadMorePies\", controller = \"PieData\", area = \"\", page = \"\"}". Executing action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:15.547 +03:00 [Information] Executing action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:32:15.553 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:15.559 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 15:32:15.566 +03:00 [Information] Executed action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 12.8529ms.
+2019-04-29 15:32:15.571 +03:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[XWorkUp.AspNetCoreMvc.ViewModels.PieViewModel, XWorkUp.AspNetCoreMvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-04-29 15:32:15.577 +03:00 [Information] Executed action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" in 31.7839ms
+2019-04-29 15:32:15.583 +03:00 [Information] Executed endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:15.589 +03:00 [Information] Request finished in 64.5148ms 200 application/json; charset=utf-8
+2019-04-29 15:32:16.622 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/api/PieData  
+2019-04-29 15:32:16.632 +03:00 [Information] Executing endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:16.638 +03:00 [Information] Route matched with "{action = \"LoadMorePies\", controller = \"PieData\", area = \"\", page = \"\"}". Executing action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:16.646 +03:00 [Information] Executing action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:32:16.652 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:16.659 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 15:32:16.667 +03:00 [Information] Executed action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 13.8844ms.
+2019-04-29 15:32:16.672 +03:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[XWorkUp.AspNetCoreMvc.ViewModels.PieViewModel, XWorkUp.AspNetCoreMvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-04-29 15:32:16.679 +03:00 [Information] Executed action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" in 34.144ms
+2019-04-29 15:32:16.684 +03:00 [Information] Executed endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:16.690 +03:00 [Information] Request finished in 68.4717ms 200 application/json; charset=utf-8
+2019-04-29 15:32:21.973 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Promo  
+2019-04-29 15:32:21.978 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Areas.Promo.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:21.986 +03:00 [Information] Route matched with "{area = \"Promo\", action = \"Index\", controller = \"Home\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Areas.Promo.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:21.994 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Areas.Promo.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:32:21.999 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Areas.Promo.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 0.4408ms.
+2019-04-29 15:32:22.009 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 15:32:22.029 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:22.035 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 15:32:22.042 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:22.048 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:22.182 +03:00 [Information] Executed ViewResult - view "Index" executed in 177.5669ms.
+2019-04-29 15:32:22.192 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Areas.Promo.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 195.0441ms
+2019-04-29 15:32:22.200 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Areas.Promo.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:22.207 +03:00 [Information] Request finished in 233.7471ms 200 text/html; charset=utf-8
+2019-04-29 15:32:23.413 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/PieGift  
+2019-04-29 15:32:23.419 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieGiftController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:23.425 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"PieGift\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieGiftController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:23.441 +03:00 [Information] Authorization failed.
+2019-04-29 15:32:23.447 +03:00 [Information] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'.
+2019-04-29 15:32:23.454 +03:00 [Information] Executing ChallengeResult with authentication schemes ([]).
+2019-04-29 15:32:23.462 +03:00 [Information] AuthenticationScheme: "Identity.Application" was challenged.
+2019-04-29 15:32:23.466 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieGiftController.Index (XWorkUp.AspNetCoreMvc)" in 36.7439ms
+2019-04-29 15:32:23.471 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieGiftController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:23.477 +03:00 [Information] Request finished in 63.6188ms 302 
+2019-04-29 15:32:23.492 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Identity/Account/Login?ReturnUrl=%2FPieGift  
+2019-04-29 15:32:23.497 +03:00 [Information] Executing endpoint '"Page: /Account/Login"'
+2019-04-29 15:32:25.314 +03:00 [Information] Route matched with "{page = \"/Account/Login\", area = \"Identity\", action = \"\", controller = \"\"}". Executing page "/Account/Login"
+2019-04-29 15:32:25.335 +03:00 [Information] Executing handler method "Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal.LoginModel.OnGetAsync" with arguments (["/PieGift"]) - ModelState is Valid
+2019-04-29 15:32:25.352 +03:00 [Information] AuthenticationScheme: "Identity.External" signed out.
+2019-04-29 15:32:25.359 +03:00 [Information] Executed handler method "OnGetAsync", returned result "".
+2019-04-29 15:32:25.368 +03:00 [Information] Executing an implicit handler method - ModelState is Valid
+2019-04-29 15:32:25.375 +03:00 [Information] Executed an implicit handler method, returned result "Microsoft.AspNetCore.Mvc.RazorPages.PageResult".
+2019-04-29 15:32:25.465 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:25.472 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 15:32:25.480 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:25.487 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:25.639 +03:00 [Information] Executed page "/Account/Login" in 317.7638ms
+2019-04-29 15:32:25.645 +03:00 [Information] Executed endpoint '"Page: /Account/Login"'
+2019-04-29 15:32:25.655 +03:00 [Information] Request finished in 2157.6862ms 200 text/html; charset=utf-8
+2019-04-29 15:32:25.754 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Identity/Account/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 15:32:25.770 +03:00 [Information] Request finished in 17.504ms 404 text/plain
+2019-04-29 15:32:26.863 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Contact  
+2019-04-29 15:32:26.869 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:26.876 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Contact\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:26.880 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:32:26.886 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 0.4645ms.
+2019-04-29 15:32:26.893 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 15:32:26.904 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:26.910 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 15:32:26.916 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:26.922 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:27.049 +03:00 [Information] Executed ViewResult - view "Index" executed in 157.7166ms.
+2019-04-29 15:32:27.055 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)" in 173.2106ms
+2019-04-29 15:32:27.071 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:27.089 +03:00 [Information] Request finished in 213.9545ms 200 text/html; charset=utf-8
+2019-04-29 15:32:31.285 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Contact  
+2019-04-29 15:32:31.290 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:31.295 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Contact\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:31.303 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:32:31.308 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 0.1351ms.
+2019-04-29 15:32:31.319 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 15:32:31.324 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:31.333 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 15:32:31.342 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:31.353 +03:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:31.463 +03:00 [Information] Executed ViewResult - view "Index" executed in 148.5646ms.
+2019-04-29 15:32:31.472 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)" in 167.9874ms
+2019-04-29 15:32:31.481 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.ContactController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:31.487 +03:00 [Information] Request finished in 200.025ms 200 text/html; charset=utf-8
+2019-04-29 15:32:33.282 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 15:32:33.288 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:33.294 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 15:32:33.300 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 15:32:33.305 +03:00 [Debug] Loading home page
+2019-04-29 15:32:33.311 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 15:32:33.317 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 11.5437ms.
+2019-04-29 15:32:33.322 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 15:32:33.334 +03:00 [Information] Executed DbCommand ("5"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 15:32:33.344 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 15:32:33.355 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:33.366 +03:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 15:32:33.518 +03:00 [Information] Executed ViewResult - view "Index" executed in 194.711ms.
+2019-04-29 15:32:33.587 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 224.3829ms
+2019-04-29 15:32:33.630 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 15:32:33.673 +03:00 [Information] Request finished in 355.252ms 200 text/html; charset=utf-8
+2019-04-29 16:06:58.258 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:06:58.303 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:06:58.307 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:06:58.378 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:06:58.791 +03:00 [Information] Executed DbCommand ("16"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:06:58.814 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:06:58.923 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:06:59.106 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:06:59.131 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:06:59.156 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:06:59.176 +03:00 [Debug] Loading home page
+2019-04-29 16:06:59.251 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:06:59.266 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 98.3965ms.
+2019-04-29 16:06:59.294 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:06:59.467 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:06:59.760 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:06:59.778 +03:00 [Information] Accessing expired session, Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a"
+2019-04-29 16:06:59.824 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:06:59.866 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:07:00.548 +03:00 [Information] Executed ViewResult - view "Index" executed in 1262.7688ms.
+2019-04-29 16:07:00.568 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 1431.2651ms
+2019-04-29 16:07:00.585 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:07:00.609 +03:00 [Information] Session started; Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a", Id:"a48f13a6-0eb9-9d2a-76de-061a46879af8"
+2019-04-29 16:07:00.692 +03:00 [Information] Request finished in 1722.8742ms 200 text/html; charset=utf-8
+2019-04-29 16:08:44.390 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:08:44.429 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:08:44.435 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:08:44.514 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:08:44.760 +03:00 [Information] Executed DbCommand ("14"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:08:44.782 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:08:44.905 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:08:45.022 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:08:45.042 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:08:45.054 +03:00 [Information] Authorization failed for the request at filter '"XWorkUp.AspNetCoreMvc.Filters.RequireHeaderAttribute"'.
+2019-04-29 16:08:45.064 +03:00 [Information] Executing HttpStatusCodeResult, setting HTTP status code 403
+2019-04-29 16:08:45.071 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 21.7596ms
+2019-04-29 16:08:45.075 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:08:45.113 +03:00 [Information] Request finished in 210.2571ms 403 text/plain
+2019-04-29 16:13:36.483 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:13:36.520 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:13:36.525 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:13:36.577 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:13:36.877 +03:00 [Information] Executed DbCommand ("18"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:13:36.912 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:13:37.044 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:13:37.221 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:13:37.240 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:13:37.266 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:13:37.283 +03:00 [Debug] Loading home page
+2019-04-29 16:13:37.380 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:13:37.393 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 117.6218ms.
+2019-04-29 16:13:37.450 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:13:37.652 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:13:38.055 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:13:38.071 +03:00 [Information] Accessing expired session, Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a"
+2019-04-29 16:13:38.123 +03:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:13:38.191 +03:00 [Information] Executed DbCommand ("11"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:13:38.971 +03:00 [Information] Executed ViewResult - view "Index" executed in 1553.7734ms.
+2019-04-29 16:13:38.988 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 1741.1565ms
+2019-04-29 16:13:38.998 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:13:39.013 +03:00 [Information] Session started; Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a", Id:"c202d5df-20af-5c6e-8ddb-82a1f923f40f"
+2019-04-29 16:13:39.035 +03:00 [Information] Request finished in 1989.6793ms 200 text/html; charset=utf-8
+2019-04-29 16:14:55.803 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:14:55.841 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:14:55.845 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:14:55.899 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:14:56.152 +03:00 [Information] Executed DbCommand ("15"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:14:56.173 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:14:56.289 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:14:56.400 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:14:56.413 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:15:13.292 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:15:13.319 +03:00 [Debug] Loading home page
+2019-04-29 16:15:13.390 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:15:13.400 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 100.0083ms.
+2019-04-29 16:15:21.407 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:15:21.568 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:15:21.862 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:15:21.877 +03:00 [Information] Accessing expired session, Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a"
+2019-04-29 16:15:21.913 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:15:21.953 +03:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:15:22.538 +03:00 [Information] Executed ViewResult - view "Index" executed in 1152.0815ms.
+2019-04-29 16:15:22.569 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 26149.922ms
+2019-04-29 16:15:22.579 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:15:22.596 +03:00 [Information] Session started; Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a", Id:"57e62ebe-7769-1e16-3176-7f27f148cb3f"
+2019-04-29 16:15:22.642 +03:00 [Information] Request finished in 26342.5239ms 200 text/html; charset=utf-8
+2019-04-29 16:22:45.567 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:22:45.616 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:22:45.620 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:22:45.694 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:22:46.027 +03:00 [Information] Executed DbCommand ("18"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:22:46.053 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:22:46.188 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:22:46.384 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:22:46.405 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:22:46.432 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:22:46.451 +03:00 [Debug] Loading home page
+2019-04-29 16:22:46.567 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:22:46.596 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 137.67ms.
+2019-04-29 16:22:46.603 +03:00 [Information] Action executed - elapsed time: 177.7087
+2019-04-29 16:22:46.649 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:22:46.979 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:22:47.350 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:22:47.362 +03:00 [Information] Accessing expired session, Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a"
+2019-04-29 16:22:47.396 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:22:47.433 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:22:48.050 +03:00 [Information] Executed ViewResult - view "Index" executed in 1421.8772ms.
+2019-04-29 16:22:48.090 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 1669.0924ms
+2019-04-29 16:22:48.097 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:22:48.114 +03:00 [Information] Session started; Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a", Id:"0a024775-7878-8507-e39e-59a1ee7f4d7a"
+2019-04-29 16:22:48.206 +03:00 [Information] Request finished in 1978.8444ms 200 text/html; charset=utf-8
+2019-04-29 16:32:32.804 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:32:32.925 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:32:32.959 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:32:33.147 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:32:33.777 +03:00 [Information] Executed DbCommand ("45"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:32:33.846 +03:00 [Information] Executed DbCommand ("7"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:32:34.248 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:32:34.597 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:32:34.650 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:32:34.719 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:32:34.801 +03:00 [Debug] Loading home page
+2019-04-29 16:32:35.012 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:32:35.076 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 295.916ms.
+2019-04-29 16:32:35.126 +03:00 [Information] Action executed - elapsed time: 400.21
+2019-04-29 16:32:35.229 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:32:35.628 +03:00 [Information] Executed DbCommand ("8"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:32:36.385 +03:00 [Information] Executed DbCommand ("5"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:32:36.442 +03:00 [Information] Accessing expired session, Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a"
+2019-04-29 16:32:36.556 +03:00 [Information] Executed DbCommand ("14"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:32:36.673 +03:00 [Information] Executed DbCommand ("10"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:32:37.956 +03:00 [Information] Executed ViewResult - view "Index" executed in 2753.1992ms.
+2019-04-29 16:32:38.128 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 3342.2311ms
+2019-04-29 16:32:38.294 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:32:38.448 +03:00 [Information] Session started; Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a", Id:"829014be-2b00-f379-eca9-2b951c0a06dc"
+2019-04-29 16:32:38.576 +03:00 [Information] Request finished in 4296.8737ms 200 text/html; charset=utf-8
+2019-04-29 16:32:43.735 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/1  
+2019-04-29 16:32:43.789 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:32:43.883 +03:00 [Information] Route matched with "{action = \"Details\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:32:43.980 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" with arguments (["1"]) - Validation state: Valid
+2019-04-29 16:32:48.617 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:32:48.749 +03:00 [Information] Executed DbCommand ("11"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [p].[PieId], [p].[AllergyInformation], [p].[CategoryId], [p].[ImageThumbnailUrl], [p].[ImageUrl], [p].[InStock], [p].[IsPieOfTheWeek], [p].[LongDescription], [p].[Name], [p].[Price], [p].[ShortDescription], [p].[SugarLevel]
+FROM [Pies] AS [p]
+WHERE [p].[PieId] = @__pieId_0
+ORDER BY [p].[PieId]"
+2019-04-29 16:32:48.933 +03:00 [Information] Executed DbCommand ("88"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [p.PieReviews].[PieReviewId], [p.PieReviews].[PieId], [p.PieReviews].[Review]
+FROM [PieReviews] AS [p.PieReviews]
+INNER JOIN (
+    SELECT TOP(1) [p0].[PieId]
+    FROM [Pies] AS [p0]
+    WHERE [p0].[PieId] = @__pieId_0
+    ORDER BY [p0].[PieId]
+) AS [t] ON [p.PieReviews].[PieId] = [t].[PieId]
+ORDER BY [t].[PieId]"
+2019-04-29 16:32:49.019 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 4978.2996ms.
+2019-04-29 16:32:49.086 +03:00 [Information] Executing ViewResult, running view "Details".
+2019-04-29 16:32:49.312 +03:00 [Information] Executed DbCommand ("28"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:32:49.361 +03:00 [Information] Executed DbCommand ("11"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:32:49.414 +03:00 [Information] Executed DbCommand ("9"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:32:49.973 +03:00 [Information] Executed ViewResult - view "Details" executed in 742.5021ms.
+2019-04-29 16:32:50.049 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 16:32:50.067 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" in 6090.9282ms
+2019-04-29 16:32:50.149 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:32:50.168 +03:00 [Information] Request finished in 164.3754ms 404 text/plain
+2019-04-29 16:32:50.217 +03:00 [Information] Request finished in 6463.4587ms 200 text/html; charset=utf-8
+2019-04-29 16:32:58.290 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/32324  
+2019-04-29 16:32:58.329 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:32:58.368 +03:00 [Information] Route matched with "{action = \"Details\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:32:58.405 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" with arguments (["32324"]) - Validation state: Valid
+2019-04-29 16:33:02.941 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:33:02.991 +03:00 [Information] Executed DbCommand ("12"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [p].[PieId], [p].[AllergyInformation], [p].[CategoryId], [p].[ImageThumbnailUrl], [p].[ImageUrl], [p].[InStock], [p].[IsPieOfTheWeek], [p].[LongDescription], [p].[Name], [p].[Price], [p].[ShortDescription], [p].[SugarLevel]
+FROM [Pies] AS [p]
+WHERE [p].[PieId] = @__pieId_0
+ORDER BY [p].[PieId]"
+2019-04-29 16:33:03.027 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.NotFoundResult" in 4587.0163ms.
+2019-04-29 16:33:03.109 +03:00 [Information] Executing HttpStatusCodeResult, setting HTTP status code 404
+2019-04-29 16:33:03.183 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" in 4741.9865ms
+2019-04-29 16:33:03.245 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:33:03.336 +03:00 [Information] Request finished in 5016.0754ms 404 text/plain
+2019-04-29 16:33:19.592 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/1  
+2019-04-29 16:33:19.657 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:33:19.696 +03:00 [Information] Route matched with "{action = \"Details\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:33:19.730 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" with arguments (["1"]) - Validation state: Valid
+2019-04-29 16:33:22.630 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:33:22.681 +03:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [p].[PieId], [p].[AllergyInformation], [p].[CategoryId], [p].[ImageThumbnailUrl], [p].[ImageUrl], [p].[InStock], [p].[IsPieOfTheWeek], [p].[LongDescription], [p].[Name], [p].[Price], [p].[ShortDescription], [p].[SugarLevel]
+FROM [Pies] AS [p]
+WHERE [p].[PieId] = @__pieId_0
+ORDER BY [p].[PieId]"
+2019-04-29 16:33:22.718 +03:00 [Information] Executed DbCommand ("6"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [p.PieReviews].[PieReviewId], [p.PieReviews].[PieId], [p.PieReviews].[Review]
+FROM [PieReviews] AS [p.PieReviews]
+INNER JOIN (
+    SELECT TOP(1) [p0].[PieId]
+    FROM [Pies] AS [p0]
+    WHERE [p0].[PieId] = @__pieId_0
+    ORDER BY [p0].[PieId]
+) AS [t] ON [p.PieReviews].[PieId] = [t].[PieId]
+ORDER BY [t].[PieId]"
+2019-04-29 16:33:22.750 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 2988.9836ms.
+2019-04-29 16:33:22.785 +03:00 [Information] Executing ViewResult, running view "Details".
+2019-04-29 16:33:22.851 +03:00 [Information] Executed DbCommand ("9"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:33:22.901 +03:00 [Information] Executed DbCommand ("8"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:33:22.957 +03:00 [Information] Executed DbCommand ("11"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:33:23.312 +03:00 [Information] Executed ViewResult - view "Details" executed in 444.2685ms.
+2019-04-29 16:33:23.366 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" in 3616.1229ms
+2019-04-29 16:33:23.451 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:33:23.563 +03:00 [Information] Request finished in 3895.5064ms 200 text/html; charset=utf-8
+2019-04-29 16:33:29.094 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/12324324  
+2019-04-29 16:33:29.137 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:33:29.189 +03:00 [Information] Route matched with "{action = \"Details\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:33:29.231 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" with arguments (["12324324"]) - Validation state: Valid
+2019-04-29 16:33:33.556 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:33:33.582 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [p].[PieId], [p].[AllergyInformation], [p].[CategoryId], [p].[ImageThumbnailUrl], [p].[ImageUrl], [p].[InStock], [p].[IsPieOfTheWeek], [p].[LongDescription], [p].[Name], [p].[Price], [p].[ShortDescription], [p].[SugarLevel]
+FROM [Pies] AS [p]
+WHERE [p].[PieId] = @__pieId_0
+ORDER BY [p].[PieId]"
+2019-04-29 16:35:32.256 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:35:32.337 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:35:32.343 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:35:32.430 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:35:32.788 +03:00 [Information] Executed DbCommand ("22"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:35:32.839 +03:00 [Information] Executed DbCommand ("6"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:35:33.026 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:35:33.232 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:35:33.257 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:35:33.291 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:35:33.312 +03:00 [Debug] Loading home page
+2019-04-29 16:35:33.426 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:35:33.446 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 138.6829ms.
+2019-04-29 16:35:33.453 +03:00 [Information] Action executed - elapsed time: 170.9753
+2019-04-29 16:35:33.497 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:35:33.769 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:35:34.213 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:35:34.233 +03:00 [Information] Accessing expired session, Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a"
+2019-04-29 16:35:34.296 +03:00 [Information] Executed DbCommand ("8"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:35:34.394 +03:00 [Information] Executed DbCommand ("6"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:35:35.040 +03:00 [Information] Executed ViewResult - view "Index" executed in 1562.5952ms.
+2019-04-29 16:35:35.080 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 1803.6549ms
+2019-04-29 16:35:35.091 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:35:35.110 +03:00 [Information] Session started; Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a", Id:"7ccde99c-9d32-416c-2542-37c13ac341ac"
+2019-04-29 16:35:35.157 +03:00 [Information] Request finished in 2131.0152ms 200 text/html; charset=utf-8
+2019-04-29 16:35:40.951 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/4  
+2019-04-29 16:35:40.965 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:35:40.998 +03:00 [Information] Route matched with "{action = \"Details\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:35:41.032 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" with arguments (["4"]) - Validation state: Valid
+2019-04-29 16:35:44.492 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:35:44.537 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [p].[PieId], [p].[AllergyInformation], [p].[CategoryId], [p].[ImageThumbnailUrl], [p].[ImageUrl], [p].[InStock], [p].[IsPieOfTheWeek], [p].[LongDescription], [p].[Name], [p].[Price], [p].[ShortDescription], [p].[SugarLevel]
+FROM [Pies] AS [p]
+WHERE [p].[PieId] = @__pieId_0
+ORDER BY [p].[PieId]"
+2019-04-29 16:35:44.549 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [p.PieReviews].[PieReviewId], [p.PieReviews].[PieId], [p.PieReviews].[Review]
+FROM [PieReviews] AS [p.PieReviews]
+INNER JOIN (
+    SELECT TOP(1) [p0].[PieId]
+    FROM [Pies] AS [p0]
+    WHERE [p0].[PieId] = @__pieId_0
+    ORDER BY [p0].[PieId]
+) AS [t] ON [p.PieReviews].[PieId] = [t].[PieId]
+ORDER BY [t].[PieId]"
+2019-04-29 16:35:44.556 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 3518.0017ms.
+2019-04-29 16:35:44.565 +03:00 [Information] Executing ViewResult, running view "Details".
+2019-04-29 16:35:44.622 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:35:44.630 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:35:44.635 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:35:44.791 +03:00 [Information] Executed ViewResult - view "Details" executed in 230.7122ms.
+2019-04-29 16:35:44.799 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" in 3793.6294ms
+2019-04-29 16:35:44.807 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:35:44.817 +03:00 [Information] Request finished in 3863.8011ms 200 text/html; charset=utf-8
+2019-04-29 16:35:44.894 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 16:35:44.916 +03:00 [Information] Request finished in 22.4731ms 404 text/plain
+2019-04-29 16:35:54.122 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/2343432  
+2019-04-29 16:35:54.172 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:35:54.218 +03:00 [Information] Route matched with "{action = \"Details\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:35:54.260 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" with arguments (["2343432"]) - Validation state: Valid
+2019-04-29 16:35:57.645 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:35:57.676 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [p].[PieId], [p].[AllergyInformation], [p].[CategoryId], [p].[ImageThumbnailUrl], [p].[ImageUrl], [p].[InStock], [p].[IsPieOfTheWeek], [p].[LongDescription], [p].[Name], [p].[Price], [p].[ShortDescription], [p].[SugarLevel]
+FROM [Pies] AS [p]
+WHERE [p].[PieId] = @__pieId_0
+ORDER BY [p].[PieId]"
+2019-04-29 16:36:00.191 +03:00 [Debug] Pie with id 2343432 not found
+System.Exception: Pie Not Found
+2019-04-29 16:36:23.405 +03:00 [Information] Executing ViewResult, running view "PieNotFound".
+2019-04-29 16:36:23.431 +03:00 [Error] The view '"PieNotFound"' was not found. Searched locations: ["/Views/Pie/PieNotFound.en-US.cshtml", "/Views/Pie/PieNotFound.en.cshtml", "/Views/Pie/PieNotFound.cshtml", "/Views/Shared/PieNotFound.en-US.cshtml", "/Views/Shared/PieNotFound.en.cshtml", "/Views/Shared/PieNotFound.cshtml", "/Pages/Shared/PieNotFound.en-US.cshtml", "/Pages/Shared/PieNotFound.en.cshtml", "/Pages/Shared/PieNotFound.cshtml"]
+2019-04-29 16:36:23.469 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" in 29228.7677ms
+2019-04-29 16:36:23.498 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:36:23.712 +03:00 [Error] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view 'PieNotFound' was not found. The following locations were searched:
+/Views/Pie/PieNotFound.en-US.cshtml
+/Views/Pie/PieNotFound.en.cshtml
+/Views/Pie/PieNotFound.cshtml
+/Views/Shared/PieNotFound.en-US.cshtml
+/Views/Shared/PieNotFound.en.cshtml
+/Views/Shared/PieNotFound.cshtml
+/Pages/Shared/PieNotFound.en-US.cshtml
+/Pages/Shared/PieNotFound.en.cshtml
+/Pages/Shared/PieNotFound.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAlwaysRunResultFilters()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2019-04-29 16:36:23.988 +03:00 [Information] Request finished in 29810.5507ms 500 text/html; charset=utf-8
+2019-04-29 16:37:52.403 +03:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:37:52.439 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:37:52.443 +03:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Pie"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2019-04-29 16:37:52.507 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:37:52.753 +03:00 [Information] Executed DbCommand ("14"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:37:52.774 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Pies] AS [p])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-04-29 16:37:52.896 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:37:53.027 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:37:53.040 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:37:53.059 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:37:53.073 +03:00 [Debug] Loading home page
+2019-04-29 16:37:53.158 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:37:53.168 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 101.0671ms.
+2019-04-29 16:37:53.173 +03:00 [Information] Action executed - elapsed time: 117.7608
+2019-04-29 16:37:53.201 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:37:53.354 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:37:53.624 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:37:53.636 +03:00 [Information] Accessing expired session, Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a"
+2019-04-29 16:37:53.673 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:37:53.762 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:37:54.330 +03:00 [Information] Executed ViewResult - view "Index" executed in 1140.2794ms.
+2019-04-29 16:37:54.355 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 1306.2797ms
+2019-04-29 16:37:54.363 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:37:54.380 +03:00 [Information] Session started; Key:"0f3ab923-becf-a9a5-1058-dbbce57d9e6a", Id:"530d7ec6-7a63-36da-b710-ed5f038a334e"
+2019-04-29 16:37:54.430 +03:00 [Information] Request finished in 1512.1098ms 200 text/html; charset=utf-8
+2019-04-29 16:38:00.953 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/4  
+2019-04-29 16:38:00.967 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:01.010 +03:00 [Information] Route matched with "{action = \"Details\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:01.052 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" with arguments (["4"]) - Validation state: Valid
+2019-04-29 16:38:03.291 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:03.437 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [p].[PieId], [p].[AllergyInformation], [p].[CategoryId], [p].[ImageThumbnailUrl], [p].[ImageUrl], [p].[InStock], [p].[IsPieOfTheWeek], [p].[LongDescription], [p].[Name], [p].[Price], [p].[ShortDescription], [p].[SugarLevel]
+FROM [Pies] AS [p]
+WHERE [p].[PieId] = @__pieId_0
+ORDER BY [p].[PieId]"
+2019-04-29 16:38:03.522 +03:00 [Information] Executed DbCommand ("10"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [p.PieReviews].[PieReviewId], [p.PieReviews].[PieId], [p.PieReviews].[Review]
+FROM [PieReviews] AS [p.PieReviews]
+INNER JOIN (
+    SELECT TOP(1) [p0].[PieId]
+    FROM [Pies] AS [p0]
+    WHERE [p0].[PieId] = @__pieId_0
+    ORDER BY [p0].[PieId]
+) AS [t] ON [p.PieReviews].[PieId] = [t].[PieId]
+ORDER BY [t].[PieId]"
+2019-04-29 16:38:03.573 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 2476.7217ms.
+2019-04-29 16:38:03.624 +03:00 [Information] Executing ViewResult, running view "Details".
+2019-04-29 16:38:03.801 +03:00 [Information] Executed DbCommand ("10"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:38:03.847 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:03.900 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:04.170 +03:00 [Information] Executed ViewResult - view "Details" executed in 541.1832ms.
+2019-04-29 16:38:04.405 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" in 3159.396ms
+2019-04-29 16:38:04.458 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 16:38:04.476 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:04.579 +03:00 [Information] Request finished in 3528.849ms 200 text/html; charset=utf-8
+2019-04-29 16:38:04.579 +03:00 [Information] Request finished in 154.8738ms 404 text/plain
+2019-04-29 16:38:07.752 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/23434535  
+2019-04-29 16:38:07.795 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:07.831 +03:00 [Information] Route matched with "{action = \"Details\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:07.884 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" with arguments (["23434535"]) - Validation state: Valid
+2019-04-29 16:38:11.634 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:11.684 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__pieId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [p].[PieId], [p].[AllergyInformation], [p].[CategoryId], [p].[ImageThumbnailUrl], [p].[ImageUrl], [p].[InStock], [p].[IsPieOfTheWeek], [p].[LongDescription], [p].[Name], [p].[Price], [p].[ShortDescription], [p].[SugarLevel]
+FROM [Pies] AS [p]
+WHERE [p].[PieId] = @__pieId_0
+ORDER BY [p].[PieId]"
+2019-04-29 16:38:11.732 +03:00 [Debug] Pie with id 23434535 not found
+System.Exception: Pie Not Found
+2019-04-29 16:38:14.875 +03:00 [Information] Executing ViewResult, running view "PieNotFound".
+2019-04-29 16:38:14.929 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:38:14.974 +03:00 [Information] Executed DbCommand ("9"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:15.063 +03:00 [Information] Executed DbCommand ("8"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:15.460 +03:00 [Information] Executed ViewResult - view "PieNotFound" executed in 494.9281ms.
+2019-04-29 16:38:15.564 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/Details/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 16:38:15.587 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)" in 7630.9733ms
+2019-04-29 16:38:15.667 +03:00 [Information] Request finished in 129.9765ms 404 text/plain
+2019-04-29 16:38:15.681 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.Details (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:15.903 +03:00 [Information] Request finished in 7974.8242ms 200 text/html; charset=utf-8
+2019-04-29 16:38:25.540 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:38:25.590 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:25.644 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:25.688 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:38:25.732 +03:00 [Debug] Loading home page
+2019-04-29 16:38:25.776 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:25.819 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 88.853ms.
+2019-04-29 16:38:25.882 +03:00 [Information] Action executed - elapsed time: 174.5249
+2019-04-29 16:38:25.949 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:38:26.016 +03:00 [Information] Executed DbCommand ("10"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:38:26.092 +03:00 [Information] Executed DbCommand ("7"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:38:26.142 +03:00 [Information] Executed DbCommand ("8"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:26.192 +03:00 [Information] Executed DbCommand ("8"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:26.509 +03:00 [Information] Executed ViewResult - view "Index" executed in 492.1169ms.
+2019-04-29 16:38:26.729 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 865.2249ms
+2019-04-29 16:38:26.788 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:26.845 +03:00 [Information] Request finished in 1295.3665ms 200 text/html; charset=utf-8
+2019-04-29 16:38:31.446 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Account/Login  
+2019-04-29 16:38:31.511 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:31.559 +03:00 [Information] Route matched with "{action = \"Login\", controller = \"Account\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:31.634 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)" with arguments ([""]) - Validation state: Valid
+2019-04-29 16:38:31.697 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 2.6259ms.
+2019-04-29 16:38:31.763 +03:00 [Information] Executing ViewResult, running view "Login".
+2019-04-29 16:38:31.948 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:32.012 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:38:32.072 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:32.127 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:32.476 +03:00 [Information] Executed ViewResult - view "Login" executed in 632.4643ms.
+2019-04-29 16:38:32.619 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Account/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 16:38:32.650 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)" in 927.6941ms
+2019-04-29 16:38:32.759 +03:00 [Information] Request finished in 173.531ms 404 text/plain
+2019-04-29 16:38:32.782 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:32.913 +03:00 [Information] Request finished in 1387.1039ms 200 text/html; charset=utf-8
+2019-04-29 16:38:37.357 +03:00 [Information] Request starting HTTP/2.0 POST https://localhost:44359/Account/Login application/x-www-form-urlencoded 251
+2019-04-29 16:38:37.406 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:37.472 +03:00 [Information] Route matched with "{action = \"Login\", controller = \"Account\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:37.619 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)" with arguments (["XWorkUp.AspNetCoreMvc.Models.AccountViewModels.LoginViewModel", ""]) - Validation state: Valid
+2019-04-29 16:38:37.681 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:37.897 +03:00 [Information] Executed DbCommand ("77"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Birthdate], [u].[City], [u].[ConcurrencyStamp], [u].[Country], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2019-04-29 16:38:38.383 +03:00 [Information] Executed DbCommand ("15"ms) [Parameters=["@__user_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [uc].[Id], [uc].[ApplicationUserId], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AspNetUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0"
+2019-04-29 16:38:38.561 +03:00 [Information] Executed DbCommand ("31"ms) [Parameters=["@__userId_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0"
+2019-04-29 16:38:38.660 +03:00 [Information] AuthenticationScheme: "Identity.Application" signed in.
+2019-04-29 16:38:38.713 +03:00 [Information] User logged in.
+2019-04-29 16:38:38.768 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.RedirectToActionResult" in 1098.8654ms.
+2019-04-29 16:38:38.847 +03:00 [Information] Executing RedirectResult, redirecting to "/".
+2019-04-29 16:38:38.921 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)" in 1374.3524ms
+2019-04-29 16:38:38.982 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:39.029 +03:00 [Information] Request finished in 1686.939ms 302 
+2019-04-29 16:38:39.128 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:38:39.187 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:39.229 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:39.274 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:38:39.336 +03:00 [Debug] Loading home page
+2019-04-29 16:38:39.384 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:39.428 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 110.7165ms.
+2019-04-29 16:38:39.469 +03:00 [Information] Action executed - elapsed time: 198.583
+2019-04-29 16:38:39.562 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:38:39.643 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:38:39.701 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:38:39.764 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:39.817 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:40.209 +03:00 [Information] Executed ViewResult - view "Index" executed in 594.191ms.
+2019-04-29 16:38:40.415 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 980.8039ms
+2019-04-29 16:38:40.506 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:40.566 +03:00 [Information] Request finished in 1434.7345ms 200 text/html; charset=utf-8
+2019-04-29 16:38:43.382 +03:00 [Information] Request starting HTTP/2.0 POST https://localhost:44359/Account/LogOff application/x-www-form-urlencoded 225
+2019-04-29 16:38:43.436 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.LogOff (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:43.501 +03:00 [Information] Route matched with "{action = \"LogOff\", controller = \"Account\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.LogOff (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:43.566 +03:00 [Information] Authorization was successful.
+2019-04-29 16:38:43.619 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.LogOff (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:38:43.686 +03:00 [Information] AuthenticationScheme: "Identity.Application" signed out.
+2019-04-29 16:38:43.773 +03:00 [Information] AuthenticationScheme: "Identity.External" signed out.
+2019-04-29 16:38:43.827 +03:00 [Information] AuthenticationScheme: "Identity.TwoFactorUserId" signed out.
+2019-04-29 16:38:43.883 +03:00 [Information] User logged out.
+2019-04-29 16:38:43.936 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.LogOff (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.RedirectToActionResult" in 263.9452ms.
+2019-04-29 16:38:43.992 +03:00 [Information] Executing RedirectResult, redirecting to "/".
+2019-04-29 16:38:44.041 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.LogOff (XWorkUp.AspNetCoreMvc)" in 491.5867ms
+2019-04-29 16:38:44.101 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.LogOff (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:44.193 +03:00 [Information] Request finished in 768.3079ms 302 
+2019-04-29 16:38:44.266 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:38:44.317 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:44.387 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:44.460 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:38:44.519 +03:00 [Debug] Loading home page
+2019-04-29 16:38:44.563 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:44.620 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 102.9669ms.
+2019-04-29 16:38:44.664 +03:00 [Information] Action executed - elapsed time: 232.9269
+2019-04-29 16:38:44.707 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:38:44.758 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:38:44.820 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:38:44.883 +03:00 [Information] Executed DbCommand ("6"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:44.926 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:45.316 +03:00 [Information] Executed ViewResult - view "Index" executed in 448.7079ms.
+2019-04-29 16:38:45.437 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 929.5928ms
+2019-04-29 16:38:45.513 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:45.580 +03:00 [Information] Request finished in 1296.1622ms 200 text/html; charset=utf-8
+2019-04-29 16:38:47.673 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Account/Login  
+2019-04-29 16:38:47.739 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:47.805 +03:00 [Information] Route matched with "{action = \"Login\", controller = \"Account\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:47.864 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)" with arguments ([""]) - Validation state: Valid
+2019-04-29 16:38:47.915 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 0.0454ms.
+2019-04-29 16:38:47.970 +03:00 [Information] Executing ViewResult, running view "Login".
+2019-04-29 16:38:48.022 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:48.077 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:38:48.148 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:48.202 +03:00 [Information] Executed DbCommand ("6"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:48.543 +03:00 [Information] Executed ViewResult - view "Login" executed in 461.1239ms.
+2019-04-29 16:38:48.864 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)" in 737.9521ms
+2019-04-29 16:38:48.932 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Account/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 16:38:49.000 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:49.083 +03:00 [Information] Request finished in 404.7292ms 404 text/plain
+2019-04-29 16:38:49.111 +03:00 [Information] Request finished in 1377.8452ms 200 text/html; charset=utf-8
+2019-04-29 16:38:52.741 +03:00 [Information] Request starting HTTP/2.0 POST https://localhost:44359/Account/Login application/x-www-form-urlencoded 250
+2019-04-29 16:38:52.807 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:52.890 +03:00 [Information] Route matched with "{action = \"Login\", controller = \"Account\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:52.940 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)" with arguments (["XWorkUp.AspNetCoreMvc.Models.AccountViewModels.LoginViewModel", ""]) - Validation state: Valid
+2019-04-29 16:38:52.992 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:53.147 +03:00 [Information] Executed DbCommand ("84"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Birthdate], [u].[City], [u].[ConcurrencyStamp], [u].[Country], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2019-04-29 16:38:53.300 +03:00 [Information] Executed DbCommand ("65"ms) [Parameters=["@__user_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [uc].[Id], [uc].[ApplicationUserId], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AspNetUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0"
+2019-04-29 16:38:53.376 +03:00 [Information] Executed DbCommand ("19"ms) [Parameters=["@__userId_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0"
+2019-04-29 16:38:53.500 +03:00 [Information] Executed DbCommand ("33"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2019-04-29 16:38:53.613 +03:00 [Information] Executed DbCommand ("14"ms) [Parameters=["@__role_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2019-04-29 16:38:53.666 +03:00 [Information] AuthenticationScheme: "Identity.Application" signed in.
+2019-04-29 16:38:53.726 +03:00 [Information] User logged in.
+2019-04-29 16:38:53.775 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.RedirectToActionResult" in 785.71ms.
+2019-04-29 16:38:53.830 +03:00 [Information] Executing RedirectResult, redirecting to "/".
+2019-04-29 16:38:53.929 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)" in 940.2176ms
+2019-04-29 16:38:53.992 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.AccountController.Login (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:54.038 +03:00 [Information] Request finished in 1305.454ms 302 
+2019-04-29 16:38:54.118 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:38:54.171 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:54.215 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:38:54.257 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:38:54.295 +03:00 [Debug] Loading home page
+2019-04-29 16:38:54.354 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:38:54.402 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 96.9047ms.
+2019-04-29 16:38:54.445 +03:00 [Information] Action executed - elapsed time: 187.1918
+2019-04-29 16:38:54.487 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:38:54.545 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:38:54.616 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:38:54.682 +03:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:54.740 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:38:55.053 +03:00 [Information] Executed ViewResult - view "Index" executed in 532.365ms.
+2019-04-29 16:38:55.209 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 844.9282ms
+2019-04-29 16:38:55.404 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:38:55.473 +03:00 [Information] Request finished in 1341.2494ms 200 text/html; charset=utf-8
+2019-04-29 16:39:13.543 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/  
+2019-04-29 16:39:13.619 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:13.673 +03:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:39:13.726 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:39:13.772 +03:00 [Debug] Loading home page
+2019-04-29 16:39:13.859 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:39:13.949 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 132.5682ms.
+2019-04-29 16:39:14.023 +03:00 [Information] Action executed - elapsed time: 275.9255
+2019-04-29 16:39:14.093 +03:00 [Information] Executing ViewResult, running view "Index".
+2019-04-29 16:39:14.139 +03:00 [Information] Executed DbCommand ("6"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsPieOfTheWeek] = 1"
+2019-04-29 16:39:14.201 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:39:14.273 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:39:14.318 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:39:14.817 +03:00 [Information] Executed ViewResult - view "Index" executed in 500.4025ms.
+2019-04-29 16:39:14.925 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)" in 1144.149ms
+2019-04-29 16:39:14.981 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.HomeController.Index (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:15.038 +03:00 [Information] Request finished in 1505.5016ms 200 text/html; charset=utf-8
+2019-04-29 16:39:16.822 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/List/Cheese cakes  
+2019-04-29 16:39:16.875 +03:00 [Information] Executing endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:16.940 +03:00 [Information] Route matched with "{action = \"List\", controller = \"Pie\", area = \"\", page = \"\"}". Executing action "XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:39:17.012 +03:00 [Information] Executing action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)" with arguments (["Cheese cakes"]) - Validation state: Valid
+2019-04-29 16:39:17.063 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:39:17.108 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:39:17.164 +03:00 [Information] Executed action method "XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 100.3422ms.
+2019-04-29 16:39:17.235 +03:00 [Information] Executing ViewResult, running view "List".
+2019-04-29 16:39:17.334 +03:00 [Information] Executed DbCommand ("7"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 16:39:17.431 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-04-29 16:39:17.482 +03:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[PieId], [c].[ShoppingCartId], [c.Pie].[PieId], [c.Pie].[AllergyInformation], [c.Pie].[CategoryId], [c.Pie].[ImageThumbnailUrl], [c.Pie].[ImageUrl], [c.Pie].[InStock], [c.Pie].[IsPieOfTheWeek], [c.Pie].[LongDescription], [c.Pie].[Name], [c.Pie].[Price], [c.Pie].[ShortDescription], [c.Pie].[SugarLevel]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:39:17.525 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Pie].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Pies] AS [c.Pie] ON [c].[PieId] = [c.Pie].[PieId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-04-29 16:39:17.905 +03:00 [Information] Executed ViewResult - view "List" executed in 576.7826ms.
+2019-04-29 16:39:17.988 +03:00 [Information] Executed action "XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)" in 965.8539ms
+2019-04-29 16:39:18.012 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/Pie/List/lib/bootstrap/dist/css/bootstrap.min.css  
+2019-04-29 16:39:18.054 +03:00 [Information] Executed endpoint '"XWorkUp.AspNetCoreMvc.Controllers.PieController.List (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:18.128 +03:00 [Information] Request finished in 111.9538ms 404 text/plain
+2019-04-29 16:39:18.148 +03:00 [Information] Request finished in 1281.3418ms 200 text/html; charset=utf-8
+2019-04-29 16:39:18.502 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/api/PieData  
+2019-04-29 16:39:18.599 +03:00 [Information] Executing endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:18.661 +03:00 [Information] Route matched with "{action = \"LoadMorePies\", controller = \"PieData\", area = \"\", page = \"\"}". Executing action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:39:18.712 +03:00 [Information] Executing action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:39:18.793 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:39:18.968 +03:00 [Information] Executed DbCommand ("23"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 16:39:19.206 +03:00 [Information] Executed action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 259.9583ms.
+2019-04-29 16:39:19.315 +03:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[XWorkUp.AspNetCoreMvc.ViewModels.PieViewModel, XWorkUp.AspNetCoreMvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-04-29 16:39:19.629 +03:00 [Information] Executed action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" in 893.7532ms
+2019-04-29 16:39:19.672 +03:00 [Information] Executed endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:19.714 +03:00 [Information] Request finished in 1286.8347ms 200 application/json; charset=utf-8
+2019-04-29 16:39:22.071 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/api/PieData  
+2019-04-29 16:39:22.146 +03:00 [Information] Executing endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:22.217 +03:00 [Information] Route matched with "{action = \"LoadMorePies\", controller = \"PieData\", area = \"\", page = \"\"}". Executing action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:39:22.307 +03:00 [Information] Executing action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:39:22.366 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:39:22.417 +03:00 [Information] Executed DbCommand ("9"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 16:39:22.464 +03:00 [Information] Executed action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 112.1632ms.
+2019-04-29 16:39:22.513 +03:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[XWorkUp.AspNetCoreMvc.ViewModels.PieViewModel, XWorkUp.AspNetCoreMvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-04-29 16:39:22.590 +03:00 [Information] Executed action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" in 298.9244ms
+2019-04-29 16:39:22.652 +03:00 [Information] Executed endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:22.741 +03:00 [Information] Request finished in 799.9591ms 200 application/json; charset=utf-8
+2019-04-29 16:39:24.451 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/api/PieData  
+2019-04-29 16:39:24.503 +03:00 [Information] Executing endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:24.555 +03:00 [Information] Route matched with "{action = \"LoadMorePies\", controller = \"PieData\", area = \"\", page = \"\"}". Executing action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:39:24.615 +03:00 [Information] Executing action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:39:24.664 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:39:24.731 +03:00 [Information] Executed DbCommand ("8"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 16:39:24.803 +03:00 [Information] Executed action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 118.7015ms.
+2019-04-29 16:39:24.889 +03:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[XWorkUp.AspNetCoreMvc.ViewModels.PieViewModel, XWorkUp.AspNetCoreMvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-04-29 16:39:24.952 +03:00 [Information] Executed action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" in 337.7187ms
+2019-04-29 16:39:25.002 +03:00 [Information] Executed endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:25.069 +03:00 [Information] Request finished in 617.2374ms 200 application/json; charset=utf-8
+2019-04-29 16:39:26.287 +03:00 [Information] Request starting HTTP/2.0 GET https://localhost:44359/api/PieData  
+2019-04-29 16:39:26.340 +03:00 [Information] Executing endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:26.387 +03:00 [Information] Route matched with "{action = \"LoadMorePies\", controller = \"PieData\", area = \"\", page = \"\"}". Executing action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"
+2019-04-29 16:39:26.482 +03:00 [Information] Executing action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" - Validation state: Valid
+2019-04-29 16:39:26.575 +03:00 [Information] Entity Framework Core "2.2.4-servicing-10062" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-04-29 16:39:26.741 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[PieId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsPieOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c].[SugarLevel], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Pies] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-04-29 16:39:26.881 +03:00 [Information] Executed action method "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 261.1486ms.
+2019-04-29 16:39:27.060 +03:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[XWorkUp.AspNetCoreMvc.ViewModels.PieViewModel, XWorkUp.AspNetCoreMvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-04-29 16:39:27.257 +03:00 [Information] Executed action "BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)" in 677.2141ms
+2019-04-29 16:39:27.464 +03:00 [Information] Executed endpoint '"BethanysPieShop.Controllers.PieDataController.LoadMorePies (XWorkUp.AspNetCoreMvc)"'
+2019-04-29 16:39:27.708 +03:00 [Information] Request finished in 1230.9204ms 200 application/json; charset=utf-8

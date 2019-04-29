@@ -7,10 +7,13 @@ using System;
 using System.Text.Encodings.Web;
 using XWorkUp.AspNetCoreMvc.Models;
 using XWorkUp.AspNetCoreMvc.ViewModels;
-using XWorkUp.AspNetCoreMvc.Utility;
+using XWorkUp.AspNetCoreMvc.Filters;
 
 namespace XWorkUp.AspNetCoreMvc.Controllers
 {
+	//[RequireHeader]
+	//[TimerAction]
+	[ServiceFilter(typeof(TimerAction))]
 	public class HomeController : Controller
 	{
 		private readonly IPieRepository _pieRepository;
