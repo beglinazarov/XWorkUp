@@ -1,10 +1,10 @@
-﻿@*@model PiesListViewModel
+﻿@model XWorkUp.AspNetCoreMvc.ViewModels.PiesListViewModel
 
 @ViewBag.CurrentCategory
 @foreach (var pie in Model.Pies)
 {
     @Html.Partial("PieOverviewSummary", pie)
-}*@
+}
 
 <div id="pieDiv">
 

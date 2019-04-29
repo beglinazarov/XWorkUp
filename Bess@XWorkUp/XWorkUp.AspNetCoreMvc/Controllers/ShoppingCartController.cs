@@ -8,51 +8,51 @@ using XWorkUp.AspNetCoreMvc.ViewModels;
 
 namespace XWorkUp.AspNetCoreMvc.Controllers
 {
-    public class ShoppingCartController : Controller
-    {
-        private readonly IPieRepository _pieRepository;
-        private readonly ShoppingCart _shoppingCart;
+	public class ShoppingCartController : Controller
+	{
+		private readonly IPieRepository _pieRepository;
+		private readonly ShoppingCart _shoppingCart;
 
-        public ShoppingCartController(IPieRepository pieRepository, ShoppingCart shoppingCart)
-        {
-            _pieRepository = pieRepository;
-            _shoppingCart = shoppingCart;
-        }
+		public ShoppingCartController(IPieRepository pieRepository, ShoppingCart shoppingCart)
+		{
+			_pieRepository = pieRepository;
+			_shoppingCart = shoppingCart;
+		}
 
-        public ViewResult Index()
-        {
-            var items = _shoppingCart.GetShoppingCartItems();
-            _shoppingCart.ShoppingCartItems = items;
+		public ViewResult Index()
+		{
+			var items = _shoppingCart.GetShoppingCartItems();
+			_shoppingCart.ShoppingCartItems = items;
 
-            var shoppingCartViewModel = new ShoppingCartViewModel
-            {
-                ShoppingCart = _shoppingCart,
-                ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
-            };
+			var shoppingCartViewModel = new ShoppingCartViewModel
+			{
+				ShoppingCart = _shoppingCart,
+				ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
+			};
 
-            return View(shoppingCartViewModel);
-        }
+			return View(shoppingCartViewModel);
+		}
 
-        public RedirectToActionResult AddToShoppingCart(int pieId)
-        {
-            var selectedPie = _pieRepository.Pies.FirstOrDefault(p => p.PieId == pieId);
+		public RedirectToActionResult AddToShoppingCart(int pieId)
+		{
+			var selectedPie = _pieRepository.Pies.FirstOrDefault(p => p.PieId == pieId);
 
-            if (selectedPie != null)
-            {
-                _shoppingCart.AddToCart(selectedPie, 1);
-            }
-            return RedirectToAction("Index");
-        }
+			if (selectedPie != null)
+			{
+				_shoppingCart.AddToCart(selectedPie, 1);
+			}
+			return RedirectToAction("Index");
+		}
 
-        public RedirectToActionResult RemoveFromShoppingCart(int pieId)
-        {
-            var selectedPie = _pieRepository.Pies.FirstOrDefault(p => p.PieId == pieId);
+		public RedirectToActionResult RemoveFromShoppingCart(int pieId)
+		{
+			var selectedPie = _pieRepository.Pies.FirstOrDefault(p => p.PieId == pieId);
 
-            if (selectedPie != null)
-            {
-                _shoppingCart.RemoveFromCart(selectedPie);
-            }
-            return RedirectToAction("Index");
-        }
-    }
+			if (selectedPie != null)
+			{
+				_shoppingCart.RemoveFromCart(selectedPie);
+			}
+			return RedirectToAction("Index");
+		}
+	}
 }

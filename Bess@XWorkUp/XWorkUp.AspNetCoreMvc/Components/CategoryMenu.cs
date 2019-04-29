@@ -1,13 +1,11 @@
 ﻿using XWorkUp.AspNetCoreMvc.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BethanysPieShop.Components
+namespace XWorkUp.AspNetCoreMvc.Components
 {
-    public class CategoryMenu : ViewComponent
+	public class CategoryMenu : ViewComponent
     {
         private readonly ICategoryRepository _categoryRepository;
         public CategoryMenu(ICategoryRepository categoryRepository)
@@ -15,10 +13,11 @@ namespace BethanysPieShop.Components
             _categoryRepository = categoryRepository;
         }
 
-        public IViewComponentResult Invoke()
-        {
-            var categories = _categoryRepository.Categories.OrderBy(c => c.CategoryName);
-            return View(categories);
-        }
-    }
+		public IViewComponentResult Invoke()
+		{
+			var categories = _categoryRepository.Categories.OrderBy(c => c.CategoryName);
+
+			return View(categories);
+		}
+	}
 }

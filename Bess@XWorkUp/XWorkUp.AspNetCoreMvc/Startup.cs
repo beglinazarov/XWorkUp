@@ -11,7 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using XWorkUp.AspNetCoreMvc.Models;
 using XWorkUp.AspNetCoreMvc.Services;
 using XWorkUp.AspNetCoreMvc.Auth;
-using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using System.Collections.Generic;
+using Microsoft.Extensions.Options;
 
 namespace XWorkUp.AspNetCoreMvc
 {
@@ -23,7 +27,7 @@ namespace XWorkUp.AspNetCoreMvc
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-				//.AddJsonFile($"secrets.{env.EnvironmentName}.json", optional: true);
+			//.AddJsonFile($"secrets.{env.EnvironmentName}.json", optional: true);
 
 			builder.AddEnvironmentVariables();
 			Configuration = builder.Build();
@@ -34,14 +38,12 @@ namespace XWorkUp.AspNetCoreMvc
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.Configure<CookiePolicyOptions>(options =>
-			{
-				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
-				options.CheckConsentNeeded = context => true;
-				options.MinimumSameSitePolicy = SameSiteMode.None;
-			});
-
-
+			//services.Configure<CookiePolicyOptions>(options =>
+			//{
+			//	// This lambda determines whether user consent for non-essential cookies is needed for a given request.
+			//	options.CheckConsentNeeded = context => true;
+			//	options.MinimumSameSitePolicy = SameSiteMode.None;
+			//});
 
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
@@ -68,19 +70,42 @@ namespace XWorkUp.AspNetCoreMvc
 			services.AddTransient<IPieReviewRepository, PieReviewRepository>();
 
 			//specify options for the anti forgery here
-			//services.AddAntiforgery(opts => { opts.RequireSsl = true; });
+			services.AddAntiforgery();
 
 			//anti forgery as global filter
-			services.AddMvc(options =>
-				options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+			//services.AddMvc(options =>
+			//	options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
+			services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 
 			services.AddMvc()
-					.AddRazorPagesOptions(options =>
+				.AddViewLocalization(
+					LanguageViewLocationExpanderFormat.Suffix,
+					opts => { opts.ResourcesPath = "Resources"; })
+				.AddDataAnnotationsLocalization()
+				.AddRazorPagesOptions(options =>
 					{
 						options.Conventions.AuthorizeFolder("/Account/Manage");
 						options.Conventions.AuthorizePage("/Account/Logout");
 					})
-			.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+			services.Configure<RequestLocalizationOptions>(
+				options =>
+				{
+					var supportedCultures = new List<CultureInfo>
+					{
+						new CultureInfo("fr"),
+						new CultureInfo("fr-FR"),
+						new CultureInfo("nl"),
+						new CultureInfo("nl-BE"),
+						new CultureInfo("en-US")
+					};
+
+					options.DefaultRequestCulture = new RequestCulture("en-US");
+					options.SupportedCultures = supportedCultures;
+					options.SupportedUICultures = supportedCultures;
+				});
 
 			services.AddIdentityCore<ApplicationUser>(options =>
 			{
@@ -93,7 +118,7 @@ namespace XWorkUp.AspNetCoreMvc
 
 			})
 				.AddRoles<IdentityRole>()
-			//	.AddUserStore<UserStore>()
+				//	.AddUserStore<UserStore>()
 				.AddSignInManager<SignInManager<ApplicationUser>>()
 				.AddDefaultUI(UIFramework.Bootstrap4)
 				.AddEntityFrameworkStores<ApplicationDbContext>()
@@ -104,7 +129,8 @@ namespace XWorkUp.AspNetCoreMvc
 				o.DefaultScheme = IdentityConstants.ApplicationScheme;
 				o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
 			})
-			.AddGoogle(googleOptions => {
+			.AddGoogle(googleOptions =>
+			{
 				googleOptions.ClientId = "419998585765-18s94828lr7catq8c9nb5dmhd96pgebq.apps.googleusercontent.com";
 				googleOptions.ClientSecret = "X_WqRQ4vlkQd4XCR6ZAOP4Dc";
 			})
@@ -174,10 +200,21 @@ namespace XWorkUp.AspNetCoreMvc
 			app.UseSession();
 			app.UseAuthentication();
 
-	
+			app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
 
+			
 			app.UseMvc(routes =>
 			{
+				//areas
+				routes.MapRoute(
+					name: "areas",
+					template: "{area:exists}/{controller=Home}/{action=Index}");
+
+				routes.MapRoute(
+				  name: "categoryfilter",
+				  template: "Pie/{action}/{category?}",
+				  defaults: new { Controller = "Pie", action = "List" });
+
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");

@@ -36,11 +36,8 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
+    <None Include="Areas\Promo\Views\Home\Index.cshtml" />
+    <None Include="Areas\Promo\Views\_ViewImports.cshtml" />
     <None Include="Views\Account\ConfirmEmail.cshtml" />
     <None Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <None Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -55,6 +52,7 @@
     <None Include="Views\Account\UseRecoveryCode.cshtml" />
     <None Include="Views\Account\VerifyAuthenticatorCode.cshtml" />
     <None Include="Views\Account\VerifyCode.cshtml" />
+    <None Include="Views\Contact\Index.cshtml" />
     <None Include="Views\Manage\AddPhoneNumber.cshtml" />
     <None Include="Views\Manage\ChangePassword.cshtml" />
     <None Include="Views\Manage\DisplayRecoveryCodes.cshtml" />
@@ -75,6 +73,7 @@
     <None Include="Views\Shared\Components\AdminMenu\Default.cshtml" />
     <None Include="Views\Shared\Components\CategoryMenu\Default.cshtml" />
     <None Include="Views\Shared\Components\ShoppingCartSummary\Default.cshtml" />
+    <None Include="Views\Shared\Components\SystemStatusPage\Default.cshtml" />
     <None Include="Views\ShoppingCart\Index.cshtml" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
@@ -101,6 +100,11 @@
     <None Include="wwwroot\lib\jquery\dist\jquery.js" />
     <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
     <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Promo\Models\" />
   </ItemGroup>
 
 </Project>

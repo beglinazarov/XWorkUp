@@ -8,5 +8,6 @@ namespace XWorkUp.AspNetCoreMvc.Models
     public interface ICategoryRepository
     {
         IEnumerable<Category> Categories { get; }
-    }
+				
+	}
 }
