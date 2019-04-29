@@ -28,10 +28,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.2" />
     <PackageReference Include="SendGrid" Version="9.10.0" />
     <Reference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <Reference Include="Microsoft.AspNetCore.Identity" />
     <Reference Include="Microsoft.AspNetCore.Mvc" />
+    <PackageReference Include="Serilog" Version="2.5.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="1.4.0" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
   </ItemGroup>
 
 
@@ -52,6 +56,7 @@
     <None Include="Views\Account\UseRecoveryCode.cshtml" />
     <None Include="Views\Account\VerifyAuthenticatorCode.cshtml" />
     <None Include="Views\Account\VerifyCode.cshtml" />
+    <None Include="Views\AppException\Index.cshtml" />
     <None Include="Views\Contact\Index.cshtml" />
     <None Include="Views\Manage\AddPhoneNumber.cshtml" />
     <None Include="Views\Manage\ChangePassword.cshtml" />

@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using XWorkUp.AspNetCoreMvc.Models;
+using XWorkUp.AspNetCoreMvc.Utility;
 using XWorkUp.AspNetCoreMvc.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,14 +15,18 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 	public class PieController : Controller
     {
 		HtmlEncoder _htmlEncoder;
+		private readonly ILogger<PieController> _logger;
 		private readonly IPieRepository _pieRepository;
         private readonly IPieReviewRepository _pieReviewRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-		public PieController(HtmlEncoder htmlEncoder, IPieRepository pieRepository,
-							ICategoryRepository categoryRepository, IPieReviewRepository pieReviewRepository)
+		public PieController(HtmlEncoder htmlEncoder,ILogger<PieController> logger,
+							IPieRepository pieRepository,
+							ICategoryRepository categoryRepository,
+							IPieReviewRepository pieReviewRepository)
         {
 			_htmlEncoder = htmlEncoder;
+			_logger = logger;
             _pieRepository = pieRepository;
 			_pieReviewRepository = pieReviewRepository;
             _categoryRepository = categoryRepository;
@@ -78,8 +85,10 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 		{
 			var pie = _pieRepository.GetPieById(id);
 			if (pie == null)
+			{
+				_logger.LogDebug(LogEventIds.GetPieIdNotFound, new Exception("Pie Not Found"), "Pie with id {0} not found", id);
 				return NotFound();
-
+			}
 			string encodedReview = _htmlEncoder.Encode(review);
 
 			_pieReviewRepository.AddPieReview(new PieReview() { Pie = pie, Review = encodedReview });

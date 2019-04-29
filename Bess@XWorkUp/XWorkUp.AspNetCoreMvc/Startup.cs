@@ -16,6 +16,9 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using System.IO;
 
 namespace XWorkUp.AspNetCoreMvc
 {
@@ -178,16 +181,21 @@ namespace XWorkUp.AspNetCoreMvc
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+			IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
 		{
+			// Diagnostics
+			// app.UseWelcomePage();
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseStatusCodePages();
 				app.UseDatabaseErrorPage();
 			}
 			else
 			{
-				app.UseExceptionHandler("/Home/Error");
+				app.UseExceptionHandler("/AppException");
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
@@ -200,8 +208,28 @@ namespace XWorkUp.AspNetCoreMvc
 			app.UseSession();
 			app.UseAuthentication();
 
-			app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
+			// Logging
+			loggerFactory.AddConsole(LogLevel.Debug);
+			loggerFactory.AddDebug(LogLevel.Debug);
 
+			//loggerFactory.AddDebug((c, l) => c.Contains("HomeController") && l > LogLevel.Trace);
+			//loggerFactory
+			//    .WithFilter(new FilterLoggerSettings
+			//    {
+			//        {"Microsoft", LogLevel.Warning},
+			//        {"System", LogLevel.Warning},
+			//        {"HomeController", LogLevel.Debug}
+			//    }).AddDebug();
+
+			//Serilog
+			Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Debug()
+				.WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "XWorkUpsLogs-{Date}.txt"))
+				.CreateLogger();
+
+			loggerFactory.AddSerilog();
+
+			app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
 			
 			app.UseMvc(routes =>
 			{
