@@ -83,7 +83,11 @@ namespace XWorkUp.AspNetCoreMvc
 
 			services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 
-			services.AddMvc()
+			
+			services.AddMvc
+				(	// global filter	
+					config => { config.Filters.AddService(typeof(TimerAction)); }
+				)
 				.AddViewLocalization(
 					LanguageViewLocationExpanderFormat.Suffix,
 					opts => { opts.ResourcesPath = "Resources"; })
@@ -147,8 +151,10 @@ namespace XWorkUp.AspNetCoreMvc
 				options.AddPolicy("AddPie", policy => policy.RequireClaim("Add Pie"));
 				options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18)));
 			});
+
 			services.AddMemoryCache();
 			services.AddSession();
+			
 			// Add application services.
 			services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("AuthMessageSenderOptions"));
 			services.AddSingleton<IEmailSender, AuthMessageSender>();
