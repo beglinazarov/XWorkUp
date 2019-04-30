@@ -20,6 +20,8 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using System.IO;
 using XWorkUp.AspNetCoreMvc.Filters;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.Linq;
 
 namespace XWorkUp.AspNetCoreMvc
 {
@@ -83,10 +85,30 @@ namespace XWorkUp.AspNetCoreMvc
 
 			services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 
-			
+			//services.AddDistributedRedisCache(options =>
+			//{
+			//	options.InstanceName = "BethanysPieShop";
+			//	options.Configuration = "localhost";
+			//});
+
 			services.AddMvc
-				(	// global filter	
-					config => { config.Filters.AddService(typeof(TimerAction)); }
+				(   // global filter	
+					config =>
+					{
+						config.Filters.AddService(typeof(TimerAction));
+						config.CacheProfiles.Add("Default",
+							new CacheProfile()
+							{
+								Duration = 30,
+								Location = ResponseCacheLocation.Any
+							});
+						config.CacheProfiles.Add("None",
+							new CacheProfile()
+							{
+								Location = ResponseCacheLocation.None,
+								NoStore = true
+							});
+					}
 				)
 				.AddViewLocalization(
 					LanguageViewLocationExpanderFormat.Suffix,
@@ -98,7 +120,18 @@ namespace XWorkUp.AspNetCoreMvc
 						options.Conventions.AuthorizePage("/Account/Logout");
 					})
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			
+			//response compression with gzip 
+			services.AddResponseCompression(options =>
+			{
+				options.EnableForHttps = true;
+				options.MimeTypes =
+					ResponseCompressionDefaults.MimeTypes.Concat(new[] { "imagejpeg" });
+			});
 
+			services.Configure<GzipCompressionProviderOptions>
+				(options => options.Level =
+					System.IO.Compression.CompressionLevel.Optimal);
 			services.Configure<RequestLocalizationOptions>(
 				options =>
 				{
@@ -154,7 +187,7 @@ namespace XWorkUp.AspNetCoreMvc
 
 			services.AddMemoryCache();
 			services.AddSession();
-			
+
 			// Add application services.
 			services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("AuthMessageSenderOptions"));
 			services.AddSingleton<IEmailSender, AuthMessageSender>();
@@ -189,7 +222,7 @@ namespace XWorkUp.AspNetCoreMvc
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env,
 			IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
 		{
 			// Diagnostics
@@ -238,7 +271,7 @@ namespace XWorkUp.AspNetCoreMvc
 			loggerFactory.AddSerilog();
 
 			app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
-			
+
 			app.UseMvc(routes =>
 			{
 				//areas

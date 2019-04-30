@@ -41,6 +41,10 @@ namespace XWorkUp.AspNetCoreMvc.Controllers
 			_pieRepository = pieRepository;
 		}
 
+		//[ResponseCache(Duration = 30, Location = ResponseCacheLocation.Client)]
+		//[ResponseCache(Duration = 30, VaryByHeader = "User-Agent")]
+		//[ResponseCache(CacheProfileName = "None")]
+		[ResponseCache(Duration = 30)]
 		public ViewResult Index()
 		{
 			// Logging
